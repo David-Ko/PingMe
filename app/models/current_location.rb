@@ -1,0 +1,2 @@
+class CurrentLocation < ApplicationRecord
+end
