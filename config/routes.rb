@@ -5,6 +5,7 @@ get("/", to: "welcome#index", as: :root)
 
 resources :users, only: [:new, :create]
 
+resources :meetup_locations
 
 
 end

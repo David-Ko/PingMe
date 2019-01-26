@@ -74,3 +74,29 @@
   
   .overflow-hidden { overflow: hidden; }
   
+
+  .meetup-index{
+    display: flex;
+    // background-color: lemonchiffon;
+    justify-content: center;
+    min-height: 300px;
+  }
+
+  #message{
+    text-align: right;
+  }
+
+  #list{
+    overflow: auto;
+    height: 150px;
+  }
+
+  .header{
+    margin-top: 5px;
+  }
+
+  #map{
+    height: 400px;
+    border-radius: 15px;
+  }
+
