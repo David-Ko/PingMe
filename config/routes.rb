@@ -19,5 +19,6 @@ resource :session, only: [:new, :create, :destroy]
 
 resources :meetup_locations
 
+resources :current_locations, only: [:new, :create]
 
 end

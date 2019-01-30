@@ -24,18 +24,18 @@
         <p>List of posts of people and restaurants they're going</p>
     </div>
 </div>
-<!--<script>
+
+
+
+<script defer>
 // Initialize and add the map
     function initMap() {
-    // The location of Uluru
-    var uluru = {lat: 49.2478853, lng: -122.902864};
-    // The map, centered at Uluru
+    var uluru = {lat: currentCoordinates[0], lng: currentCoordinates[1]};
     var map = new google.maps.Map(
         document.getElementById('map'), {zoom: 12, center: uluru});
-    // The marker, positioned at Uluru
     var marker = new google.maps.Marker({position: uluru, map: map});
     }
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASlWSWWSeh7KDirc6UrB1qVy3ngCWVVZ0&callback=initMap"
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASlWSWWSeh7KDirc6UrB1qVy3ngCWVVZ0&callback=initMap"
   type="text/javascript">
-</script>-->
+</script>

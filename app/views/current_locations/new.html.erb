@@ -1,0 +1,27 @@
+<div class="container pl-5">
+    <h1>We need to use your location, is that ok?</h1>
+</div>
+<div class="container pr-5 pl-5">
+   <%#<%= link_to 'Yes', meetup_locations_path %>
+   <%= form_with(model: @location, local: true) do |form| %>
+   <%= form.submit "yes", class: "btn btn-secondary" %>
+   <%= form.text_field :longitude, class: "longitude"%>
+   <%= form.text_field :latitude, class: "latitude"%>
+   <% end %>
+</div>
+
+<script >
+  const currentCoordinates = [];
+    navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position)
+       currentCoordinates.push(position.coords.latitude);
+       currentCoordinates.push(position.coords.longitude);
+
+       document.querySelector(".longitude").value = `${position.coords.longitude}`
+       console.log(document.querySelector(".longitude"))
+       document.querySelector(".latitude").value = `${position.coords.latitude}`
+
+    })
+  console.log(currentCoordinates)
+</script>
+

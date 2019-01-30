@@ -2,16 +2,10 @@
     <div class="col-md-5 p-lg-5 mx-auto my-5">
       <h1 class="display-4 font-weight-normal">Ping me</h1>
       <p class="lead font-weight-normal">Leading app to meet like-minded people around you.</p>
+      <% if !user_signed_in?%>
       <%= link_to 'Sign Up', new_user_path, class: "btn btn-outline-secondary mr-3" %>
       <%= link_to 'Log In', new_session_path, class: "btn btn-outline-secondary" %>
+      <% end %>
     </div>
 </div>
 
-<!--<script async defer>
-  const currentCoordinates = [];
-    navigator.geolocation.getCurrentPosition((position) => {
-       currentCoordinates.push(position.coords.latitude);
-       currentCoordinates.push(position.coords.longitude);
-    })
-  console.log(currentCoordinates)
-</script>-->

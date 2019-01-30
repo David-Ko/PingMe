@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-
+    has_many :current_locations, dependent: :nullify
+    
     has_secure_password
 
     validates :email, presence: true,
