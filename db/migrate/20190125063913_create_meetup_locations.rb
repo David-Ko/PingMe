@@ -1,8 +1,8 @@
 class CreateMeetupLocations < ActiveRecord::Migration[5.2]
   def change
     create_table :meetup_locations do |t|
-      t.decimal :meetup_latitude, { precision: 10, scale: 6 }
-      t.decimal :meetup_longitude, { precision: 10, scale: 6 }
+      t.float :meetup_latitude
+      t.float :meetup_longitude
       t.boolean :active
       
       t.timestamps

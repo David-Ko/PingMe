@@ -1,10 +1,28 @@
+<%= javascript_pack_tag 'main' %>
+
 <div class="container border meetup-index">
     <div id="map" class="container border m-3">
         <p>Map placeholder</p>
     </div>
 
-    <div id="message" class="container border m-3">
-        <p>Messages and alerts</p>
+    <div class="container border m-3">
+        <%=form_with(url: search_path,local: true, html: { id: "search"}) do |form|%>
+        <div class="form-group mt-3">
+            <%=form.label :distance%>
+            <%=form.text_field :distance, class: "form-control"%>
+        </div>
+        <div class="form-group mt-3">
+            <%=form.label :venue%>
+            <%=form.text_field :venue, class: "form-control"%>
+        </div>
+        <%= form.text_field :longitude, class: "longitude"%>
+        <%= form.text_field :latitude, class: "latitude"%>
+        <%=form.submit "search"%>
+
+        <% end %>
+        <p>Meetup options:  </p>
+        <p>Radius: ??? KM </p>
+        <p>Where to: Drop down of Coffee shop, restaurants, etc </p>
     </div>
 </div>
 <div class="container">
@@ -12,30 +30,34 @@
 </div>
 <div id="list" class="container border">
     <div id="list-items" class="container border p-2">
-        <p>List of posts of people and restaurants they're going</p>
-        <p>List of posts of people and restaurants they're going</p>
-        <p>List of posts of people and restaurants they're going</p>
-        <p>List of posts of people and restaurants they're going</p>
-        <p>List of posts of people and restaurants they're going</p>
-        <p>List of posts of people and restaurants they're going</p>
-        <p>List of posts of people and restaurants they're going</p>
-        <p>List of posts of people and restaurants they're going</p>
-        <p>List of posts of people and restaurants they're going</p>
-        <p>List of posts of people and restaurants they're going</p>
+        <p>Peter    Tim Hortons       12pm    Go with me!</p>
+        <p>John    Starbucks          12pm    Go with me!</p>
+        <p>Mary    Starbucks          12pm    Go with me!</p>
+        <p>Abby    Waves              12pm    Go with me!</p>
+        <p>Lilly   Starbucks          12pm    Go with me!</p>
+        <p>Wes     Blenz              12pm    Go with me!</p>
     </div>
 </div>
 
-
-
-<script defer>
+<script defer >
 // Initialize and add the map
     function initMap() {
-    var uluru = {lat: currentCoordinates[0], lng: currentCoordinates[1]};
-    var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 12, center: uluru});
-    var marker = new google.maps.Marker({position: uluru, map: map});
+        var vancouver = {lat: 49.2347, lng: -123.0812};
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 12, center: vancouver}
+        );
+        navigator.geolocation.getCurrentPosition((position) => {
+            var location = {lat: position.coords.latitude, lng: position.coords.longitude}
+            map.setCenter(location)
+
+            var marker = new google.maps.Marker({position: location, map: map});
+            console.log(location.lat, location.lng)
+
+            document.querySelector(".longitude").value = `${position.coords.longitude}`
+            document.querySelector(".latitude").value = `${position.coords.latitude}`
+        })
     }
 </script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASlWSWWSeh7KDirc6UrB1qVy3ngCWVVZ0&callback=initMap"
+<script async src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
   type="text/javascript">
 </script>

@@ -3,22 +3,23 @@
 </div>
 <div class="container pr-5 pl-5">
    <%#<%= link_to 'Yes', meetup_locations_path %>
-   <%= form_with(model: @location, local: true) do |form| %>
-   <%= form.submit "yes", class: "btn btn-secondary" %>
+   <%= form_with(model: @current_location, local: true) do |form| %>
+   <% if @current_location.errors.present?%>
+      <p><%=@current_location.errors.full_messages.join(", ")%></p>
+   <% end %>
+   <%= form.submit "yes", class: "btn btn-secondary"%>
    <%= form.text_field :longitude, class: "longitude"%>
    <%= form.text_field :latitude, class: "latitude"%>
    <% end %>
 </div>
 
 <script >
+  //<setTimeout(()=>{},1000)
   const currentCoordinates = [];
     navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position)
        currentCoordinates.push(position.coords.latitude);
        currentCoordinates.push(position.coords.longitude);
-
        document.querySelector(".longitude").value = `${position.coords.longitude}`
-       console.log(document.querySelector(".longitude"))
        document.querySelector(".latitude").value = `${position.coords.latitude}`
 
     })

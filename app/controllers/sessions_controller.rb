@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
         if user&.authenticate(params[:password]) 
             session[:user_id] = user.id 
             flash[:primary] = "Welcome, #{user.first_name}!"
-            redirect_to new_current_location_path
+            redirect_to meetup_locations_path
         else
             flash[:primary] = "email or password wrong"
             render :new

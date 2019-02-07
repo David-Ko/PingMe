@@ -21,4 +21,6 @@ resources :meetup_locations
 
 resources :current_locations, only: [:new, :create]
 
+post("/search", to: "search#index", as: :search)
+
 end

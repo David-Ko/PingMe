@@ -15,5 +15,4 @@
 //= require bootstrap
 //= require rails-ujs
 //= require activestorage
-//= require main
 //= require_tree .

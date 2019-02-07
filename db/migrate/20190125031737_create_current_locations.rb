@@ -1,8 +1,8 @@
 class CreateCurrentLocations < ActiveRecord::Migration[5.2]
   def change
     create_table :current_locations do |t|
-      t.decimal :current_latitude, { precision: 10, scale: 6 }
-      t.decimal :current_longitude, { precision: 10, scale: 6 }
+      t.float :current_latitude
+      t.float :current_longitude
 
       t.timestamps
     end
