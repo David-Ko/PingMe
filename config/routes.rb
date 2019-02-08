@@ -16,11 +16,13 @@ resources :users, only: [:new, :create]
 #######################
 resource :session, only: [:new, :create, :destroy]
 
-
 resources :meetup_locations
 
 resources :current_locations, only: [:new, :create]
 
-post("/search", to: "search#index", as: :search)
+# post("/search", to: "searches#index", as: :search)
+resources :searches
+get('/google_search', to: "searches#google", as: :google_search)
+
 
 end

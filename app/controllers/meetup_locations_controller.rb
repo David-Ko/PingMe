@@ -9,6 +9,11 @@ class MeetupLocationsController < ApplicationController
         # @locations = locations.filter(where distance between current locatoin and location is withing search params)
     end
 
+    def create
+              .save
+    end
+
+
     
 
 

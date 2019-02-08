@@ -100,3 +100,17 @@
     border-radius: 15px;
   }
 
+  .create-or-join{
+    display: flex;
+    // background-color: lemonchiffon;
+    justify-content: center;
+    min-height: 300px;
+  }
+
+  .create-meetup, .join-meetup{
+    margin: 20px 50px;
+  }
+
+  .header-1{
+    justify-content: center;
+  }

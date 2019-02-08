@@ -1,4 +1,3 @@
-import appKey from "../../../keys"
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('#search');
     form.addEventListener('submit', (event) => {
@@ -14,14 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(distance)
         console.log(`longitude: ${lng}`)
         console.log(`latitude: ${lat}`)
-        fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${distance}&type=${venue}&keyword=${venue}&key=${appKey}`, 
+        fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${distance}&type=${venue}&keyword=${venue}&key=YourAPIKey`, 
         {
             method: "GET",
+            mode: 'no-cors',
             headers: {
               "Content-Type": "application/json",
             }
           })
-        .then(res=>res.json())
+        .then(res=>(res.body))
         .then(data=>console.log(data))
     });
 })

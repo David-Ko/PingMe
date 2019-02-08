@@ -1,0 +1,33 @@
+<%#<%= javascript_pack_tag 'main' %>
+
+<div class="container border meetup-index">
+    <div class="container border m-3">
+        <%=form_with(url: google_search_path, method: :get, local: true, html: { id: "search"}) do |form|%>
+        <div class="form-group mt-3">
+            <%=form.label :Distance%>
+            <%=form.text_field :distance, class: "form-control"%>
+        </div>
+        <div class="form-group mt-3">
+            <%=form.label :Venue%>
+            <%=form.text_field :venue, class: "form-control"%>
+        </div>
+        <div class="form-group mt-3">
+            <%=form.label :Time%>
+            <%=form.text_field :time, class: "form-control"%>
+        </div>
+        <%= form.text_field :longitude, class: "longitude"%>
+        <%= form.text_field :latitude, class: "latitude"%>
+        <%=form.submit "Search"%>
+
+        <% end %>
+    </div>
+</div>
+
+<script>
+        navigator.geolocation.getCurrentPosition((position) => {
+            console.log(position.coords.longitude)
+            console.log(position.coords.latitude)
+            document.querySelector(".longitude").value = `${position.coords.longitude}`
+            document.querySelector(".latitude").value = `${position.coords.latitude}`
+        })
+</script>

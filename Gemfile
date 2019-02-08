@@ -44,7 +44,8 @@ gem 'active_model_serializers'
 gem 'geocoder'
 gem 'rb-readline'
 gem 'webpacker'
-# gem 'rack-cors'
+gem 'http'
+gem 'rest-client'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
