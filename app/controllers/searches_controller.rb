@@ -12,13 +12,10 @@ class SearchesController < ApplicationController
         @lng = params[:longitude]
         @lat = params[:latitude]
         
-        @places_array = RestClient.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{@lat},#{@lng}&radius=#{@distance}&type=#{@venue}&keyword=#{@venue}&key=YourAPIKey", {accept: :json})
-        
+        places = RestClient.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{@lat},#{@lng}&radius=#{@distance}&type=#{@venue}&keyword=#{@venue}&key=YourAPIKey", {accept: :json})
+        @places = JSON.parse places
         render :index
-
     end
-
-
 
     private
     def search_params

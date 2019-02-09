@@ -1,0 +1,19 @@
+<div class="container border meetup-index">
+    <div id="map" class="container border m-3">
+        <p>Map placeholder</p>
+    </div>
+
+    <div class="container mt-3 p-3" id="list">
+        <ul>
+        <% @places["results"].each do |place|%>
+             <li>
+             <%= place["name"]%>
+             <%= place["vicinity"]%>
+             </li>
+        <% end %>    
+        </ul>
+    </div>
+
+</div>
+
+    
