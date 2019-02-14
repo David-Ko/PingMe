@@ -4,16 +4,45 @@
     </div>
 
     <div class="container mt-3 p-3" id="list">
-        <ul>
-        <% @places["results"].each do |place|%>
-             <li>
-             <%= place["name"]%>
-             <%= place["vicinity"]%>
-             </li>
-        <% end %>    
-        </ul>
+        <div>
+            <p>There are <%=@places["results"].count%> <%=@venue%> <%=@distance%> meters around you</p>
+        </div>
+        <div>
+            <% @places["results"].each do |place|%>
+                <%=form_with(model: @meetup_location, method: :post, local: true) do |form|%>
+                    <%= place["name"]%>
+                    <%= place["vicinity"]%>
+                <div class="form-group mt-3">
+                    <%=form.label :Time%>
+                    <%=form.text_field :time, class: "form-control"%>
+                    <%= form.hidden_field :place_name, :value => "#{place["name"]}" %>
+                    <%= form.hidden_field :place_address, :value => "#{place["vicinity"]}" %>
+                    <%= form.hidden_field :place_lat, :value => "#{place["geometry"]["location"]["lat"]}" %>
+                    <%= form.hidden_field :place_lng, :value => "#{place["geometry"]["location"]["lng"]}" %>
+                    <%=form.submit "Go"%>
+                </div>
+                <% end %>
+            <% end %>    
+            </ol>
+        </div>
     </div>
-
 </div>
+
+<script defer >
+    function initMap() {
+        var vancouver = {lat: location.lat, lng: location.lng};
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 12, center: vancouver}
+        );
+        navigator.geolocation.getCurrentPosition((position) => {
+            var location = {lat: position.coords.latitude, lng: position.coords.longitude}
+            map.setCenter(location)
+            var marker = new google.maps.Marker({position: location, map: map});
+        })
+    }
+</script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=YourAPIKey&callback=initMap"
+  type="text/javascript">
+</script>
 
     

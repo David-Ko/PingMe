@@ -76,7 +76,7 @@
   
 
   .meetup-index{
-    display: flex;
+    // display: flex;
     // background-color: lemonchiffon;
     justify-content: center;
     min-height: 300px;
@@ -88,7 +88,7 @@
 
   #list{
     overflow: auto;
-    height: 150px;
+    height: 300px;
   }
 
   .header{
@@ -102,7 +102,6 @@
 
   .create-or-join{
     display: flex;
-    // background-color: lemonchiffon;
     justify-content: center;
     min-height: 300px;
   }
@@ -112,5 +111,9 @@
   }
 
   .header-1{
+    justify-content: center;
+  }
+
+  .video {
     justify-content: center;
   }

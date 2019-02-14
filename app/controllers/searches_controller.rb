@@ -7,6 +7,7 @@ class SearchesController < ApplicationController
     end
 
     def google
+        @meetup_location = MeetupLocation.new 
         @distance = params[:distance]
         @venue = params[:venue]
         @lng = params[:longitude]
