@@ -18,7 +18,7 @@
       </a>
       <%= link_to 'Home', root_path, class: "py-2 d-none d-md-inline-block"  %>
       <% if user_signed_in? %>
-        <%= link_to 'Pings', "/", class: "py-2 d-none d-md-inline-block"%>
+        <%= link_to 'MyPings', meetup_locations_path, class: "py-2 d-none d-md-inline-block"%>
         <%= link_to 'Create Pings', new_search_path, class: "py-2 d-none d-md-inline-block"%>
         <%= link_to 'Join Pings', "/", class: "py-2 d-none d-md-inline-block"%>
         <%= link_to 'Log Out', session_path, method: :delete, data: {confirm: "Are you sure?"}, class: "py-2 d-none d-md-inline-block"%>
