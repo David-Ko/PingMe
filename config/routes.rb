@@ -24,5 +24,7 @@ resources :current_locations, only: [:new, :create]
 resources :searches
 get('/google_search', to: "searches#google", as: :google_search)
 
+resources :meetup_searches
+
 
 end

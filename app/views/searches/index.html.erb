@@ -5,7 +5,7 @@
 
     <div class="container mt-3 p-3" id="list">
         <div>
-            <p>There are <%=@places["results"].count%> <%=@venue%> <%=@distance%> meters around you</p>
+            <p>There are <%=@places["results"].count%> <%=@venue%> <%=@distance.to_i / 1000%> km around you</p>
         </div>
         <div>
             <% @places["results"].each do |place|%>
@@ -17,9 +17,9 @@
                     <%=form.text_field :time, class: "form-control"%>
                     <%= form.hidden_field :place_name, :value => "#{place["name"]}" %>
                     <%= form.hidden_field :place_address, :value => "#{place["vicinity"]}" %>
-                    <%= form.hidden_field :place_lat, :value => "#{place["geometry"]["location"]["lat"]}" %>
-                    <%= form.hidden_field :place_lng, :value => "#{place["geometry"]["location"]["lng"]}" %>
-                    <%=form.submit "Go"%>
+                    <%= form.hidden_field :latitude, :value => "#{place["geometry"]["location"]["lat"]}" %>
+                    <%= form.hidden_field :longitude, :value => "#{place["geometry"]["location"]["lng"]}" %>
+                    <%=form.submit "Go", class: "btn btn-secondary"%>
                 </div>
                 <% end %>
             <% end %>    

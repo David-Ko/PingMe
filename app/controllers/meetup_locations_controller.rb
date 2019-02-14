@@ -23,6 +23,6 @@ class MeetupLocationsController < ApplicationController
 
     private
     def meetup_params
-        params.require(:meetup_location).permit(:place_name, :place_address, :place_lat, :place_lng, :time)
+        params.require(:meetup_location).permit(:place_name, :place_address, :latitude, :longitude, :time)
     end
 end

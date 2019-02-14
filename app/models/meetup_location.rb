@@ -1,4 +1,6 @@
 class MeetupLocation < ApplicationRecord
+    # extend Geocoder::Model::ActiveRecord
+    geocoded_by :address
     # attribute_accessor :place_name
     # belongs_to :host, class: User
     # belongs_to :guest, class: User

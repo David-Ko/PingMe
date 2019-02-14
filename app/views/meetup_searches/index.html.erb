@@ -1,0 +1,13 @@
+<h1>Meetups near you</h1>
+
+<div>
+    <p>
+        <% @nearby_meetup_locations.each do |meetup_location|%>
+            <p>
+            <%=meetup_location.place_name%> 
+            at <%=meetup_location.place_address%>
+            at <%=meetup_location.time%>
+            </p>
+        <% end %>
+    </p>
+</div>
