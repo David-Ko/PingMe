@@ -26,5 +26,7 @@ get('/google_search', to: "searches#google", as: :google_search)
 
 resources :meetup_searches
 
+resources :meetup_users
+
 
 end

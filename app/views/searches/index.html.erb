@@ -14,7 +14,7 @@
                     <%= place["vicinity"]%>
                 <div class="form-group mt-3">
                     <%=form.label :Time%>
-                    <%=form.text_field :time, class: "form-control"%>
+                    <%=form.datetime_local_field :date_time, class: "form-control"%>
                     <%= form.hidden_field :place_name, :value => "#{place["name"]}" %>
                     <%= form.hidden_field :place_address, :value => "#{place["vicinity"]}" %>
                     <%= form.hidden_field :latitude, :value => "#{place["geometry"]["location"]["lat"]}" %>
@@ -39,6 +39,22 @@
             map.setCenter(location)
             var marker = new google.maps.Marker({position: location, map: map});
         })
+        setMarkers(map);
+    }
+
+    function setMarkers(map) {
+      <% @places["results"].each do |place| %>
+        var infowindow = new google.maps.InfoWindow({
+          content: '<h2><%= place["name"] %></h2>'
+        });  
+        marker = new google.maps.Marker({
+            position: {lat: <%= place["geometry"]["location"]["lat"] %>, lng: <%= place["geometry"]["location"]["lng"]%>},
+            map: map
+          });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      <% end %>
     }
 </script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=YourAPIKey&callback=initMap"

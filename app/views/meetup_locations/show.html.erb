@@ -5,6 +5,6 @@
     <div>
         You're going to <%=@meetup_location.place_name%>
         at <%=@meetup_location.place_address%> 
-        at  <%=@meetup_location.time%>   
+        at  <%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>   
     </div>
 </div>

@@ -1,10 +1,9 @@
-# require 'net/http'
 class MeetupLocationsController < ApplicationController
     before_action :authenticate_user!
     
     def index
         @user = current_user
-        @meetup_locations = @user.meetup_locations
+        @meetup_locations = @user.meetup_locations.order(created_at: :desc)
     end
     
     def create
@@ -23,6 +22,6 @@ class MeetupLocationsController < ApplicationController
 
     private
     def meetup_params
-        params.require(:meetup_location).permit(:place_name, :place_address, :latitude, :longitude, :time)
+        params.require(:meetup_location).permit(:place_name, :place_address, :latitude, :longitude, :date_time)
     end
 end
