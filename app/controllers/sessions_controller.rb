@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     def destroy
         user = User.find_by_id(session[:user_id])
         session[:user_id] = nil
-        flash[:primary] = "See you next time, #{user.first_name}."
+        flash[:light] = "See you next time, #{user.first_name}."
         redirect_to root_path
     end
 

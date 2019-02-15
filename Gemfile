@@ -46,6 +46,7 @@ gem 'rb-readline'
 gem 'webpacker'
 gem 'http'
 gem 'rest-client'
+gem 'twilio-ruby'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
