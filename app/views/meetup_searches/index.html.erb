@@ -48,8 +48,10 @@
         setMarkers(map);
     }
     function setMarkers(map) {
+      
       <% @nearby_meetup_locations.each do |location| %>
         {
+        <% if location.users.count < 2 %>
         const infowindow = new google.maps.InfoWindow({
           content: '<h2><%= location.place_name %></h2>'
         });  
@@ -60,8 +62,10 @@
         marker.addListener('click', function() {
           infowindow.open(map, marker);
         });
+        <% end %>
         }
       <% end %>
+
     }
 </script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASlWSWWSeh7KDirc6UrB1qVy3ngCWVVZ0&callback=initMap"
