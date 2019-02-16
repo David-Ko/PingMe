@@ -34,7 +34,7 @@ class MeetupLocationsController < ApplicationController
         #     )
         @meetup_location.destroy
         flash[:primary] = "We're sorry to see that you deleted your Ping."
-        redirect_to root_path
+        redirect_to meetup_locations_path
     end
 
     private

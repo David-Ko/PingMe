@@ -10,8 +10,8 @@ class SearchesController < ApplicationController
         @meetup_location = MeetupLocation.new 
         @distance = (params[:distance].to_i * 1000)
         @venue = params[:venue]
-        @lng = params[:longitude]
-        @lat = params[:latitude]
+        @lng = params[:longitude] ||= 49.2820475
+        @lat = params[:latitude] ||= -123.1084801
         
         @raw_places = RestClient.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{@lat},#{@lng}&radius=#{@distance}&type=#{@venue}&keyword=#{@venue}&key=#{ENV['GOOGLE_API_KEY']}", {accept: :json})
         @places = JSON.parse @raw_places

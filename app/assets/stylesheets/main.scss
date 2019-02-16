@@ -1,6 +1,6 @@
 
 .container {
-    max-width: 960px;
+    // max-width: 960px;
   }
   
   /*
@@ -76,7 +76,7 @@
   
 
   .meetup-index{
-    // display: flex;
+    display: flex;
     // background-color: lemonchiffon;
     justify-content: center;
     min-height: 300px;
@@ -88,7 +88,7 @@
 
   #list{
     overflow: auto;
-    height: 300px;
+    height: 400px;
   }
 
   .header{
@@ -120,4 +120,13 @@
 
   .index {
     justify-content: center;
+  }
+
+  .details {
+    height: 200px;
+
+  }
+
+  #details-at-bottom {
+    visibility: hidden;
   }

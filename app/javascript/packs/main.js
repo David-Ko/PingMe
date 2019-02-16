@@ -1,27 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('#search');
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const { currentTarget } = event;
-        const formData = new FormData(currentTarget);
-        console.log(formData)
-        let venue = formData.get("venue")
-        let distance = formData.get("distance")
-        let lng = formData.get("longitude")
-        let lat = formData.get("latitude")
-        console.log(venue)
-        console.log(distance)
-        console.log(`longitude: ${lng}`)
-        console.log(`latitude: ${lat}`)
-        fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${distance}&type=${venue}&keyword=${venue}&key=YourAPIKey`, 
-        {
-            method: "GET",
-            mode: 'no-cors',
-            headers: {
-              "Content-Type": "application/json",
-            }
-          })
-        .then(res=>(res.body))
-        .then(data=>console.log(data))
+    const links = document.querySelectorAll('#location');
+    links.forEach(function(link){
+      link.addEventListener('click', (event)=>{
+        const { target } = event;
+        const formData = new FormData(target);
+        let name = formData.get("meetup_location[place_name]")
+        let address = formData.get("meetup_location[place_address]")
+        let rating = formData.get("meetup_location[place_rating]")
+        let html = formData.get("meetup_location[place_html_attributions]")
+        // console.log(name)
+        document.getElementById("details-at-bottom").style.visibility = 'visible';
+        document.getElementById("name").innerText = `${name}`
+        document.getElementById("address").innerText = `${address}`
+        document.getElementById("rating").innerText = `${rating}`
+        document.getElementById("html").innerHTML = `${html}`
+      });
     });
-})
+});

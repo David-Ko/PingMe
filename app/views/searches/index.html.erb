@@ -1,3 +1,4 @@
+<%= javascript_pack_tag 'main' %>
 <div class="container border meetup-index">
     <div id="map" class="container border m-3">
         <p>Map placeholder</p>
@@ -5,27 +6,40 @@
 
     <div class="container mt-3 p-3" id="list">
         <div>
-            <p>There are <%=@places["results"].count%> <%=@venue%> <%=@distance.to_i / 1000%> km around you</p>
+            <p>There are <%=@places["results"].count%> <%=@venue%> venues <%=@distance.to_i / 1000%> km around you</p>
         </div>
         <div>
             <% @places["results"].each do |place|%>
-                <%=form_with(model: @meetup_location, method: :post, local: true) do |form|%>
+                <%=form_with(model: @meetup_location, method: :post, local: true, :html => {:id => "location"}) do |form|%>
                     <%= place["name"]%>
                     <%= place["vicinity"]%>
                 <div class="form-group mt-3">
                     <%=form.label :Time%>
                     <%=form.datetime_local_field :date_time, class: "form-control"%>
+                    <%=form.submit "Go", class: "btn btn-secondary"%>
                     <%= form.hidden_field :place_name, :value => "#{place["name"]}" %>
                     <%= form.hidden_field :place_address, :value => "#{place["vicinity"]}" %>
                     <%= form.hidden_field :latitude, :value => "#{place["geometry"]["location"]["lat"]}" %>
                     <%= form.hidden_field :longitude, :value => "#{place["geometry"]["location"]["lng"]}" %>
-                    <%=form.submit "Go", class: "btn btn-secondary"%>
+                    <%= form.hidden_field :place_rating, :value => "#{place["rating"]}" %>
+                    <%= form.hidden_field :place_html_attributions, :value => "#{place["photos"][0]["html_attributions"][0]}" %>
                 </div>
                 <% end %>
             <% end %>    
             </ol>
         </div>
     </div>
+</div>
+<div class = "details container" id = "details-at-bottom">
+    <h1>Details</h1>
+    <p>Venue name</p>
+    <div id="name"></div>
+    <p>Address</p>
+    <div id="address"></div>
+    <p>Customer Rating:</p>
+    <div id="rating"></div>
+    <p>Photos by customers:</p>
+    <div id="html" target="_blank"></div>
 </div>
 
 <script defer >
@@ -67,7 +81,7 @@
       <% end %>
     }
 </script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=YourAPIKey&callback=initMap"
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASlWSWWSeh7KDirc6UrB1qVy3ngCWVVZ0&callback=initMap"
   type="text/javascript">
 </script>
 
