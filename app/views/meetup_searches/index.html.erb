@@ -9,16 +9,18 @@
         <p>
             <% @nearby_meetup_locations.each do |meetup_location|%>
                 <p>
-                <%=form_with(model: @meetup_user, method: :post, local: true) do |form|%>
-                    <%=meetup_location.place_name%> 
-                    at <%=meetup_location.place_address%>
-                    at <%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>
-                    by <%meetup_location.users.each do |user|%>
-                            <%=user.first_name%>
-                            <%=user.profession%>
+                <% if meetup_location.users.count < 2 %>
+                    <%=form_with(model: @meetup_user, method: :post, local: true) do |form|%>
+                        <%=meetup_location.place_name%> 
+                        at <%=meetup_location.place_address%>
+                        at <%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>
+                        by <%meetup_location.users.each do |user|%>
+                                <%=user.first_name%>
+                                <%=user.profession%>
+                        <% end %>
+                        <%= form.hidden_field :meetup_location, :value => "#{meetup_location.id}" %>
+                        <%=form.submit "Join!", class: "btn btn-secondary"%>
                     <% end %>
-                    <%= form.hidden_field :meetup_location, :value => "#{meetup_location.id}" %>
-                    <%=form.submit "Join!", class: "btn btn-secondary"%>
                 <% end %>
                 </p>
             <% end %>
@@ -27,30 +29,38 @@
 </div>
 <script defer >
     function initMap() {
-        var vancouver = {lat: location.lat, lng: location.lng};
+        var vancouver = {lat:49.2827, lng:-123.1207};
         var map = new google.maps.Map(
             document.getElementById('map'), {zoom: 12, center: vancouver}
         );
+        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
         navigator.geolocation.getCurrentPosition((position) => {
             var location = {lat: position.coords.latitude, lng: position.coords.longitude}
             map.setCenter(location)
-            var marker = new google.maps.Marker({position: location, map: map});
+            var marker = new google.maps.Marker({position: location, map: map, icon: image});
+            var infowindow = new google.maps.InfoWindow({
+                content: '<h2>You are here!</h2>'
+            });
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+            });
         })
         setMarkers(map);
     }
-
     function setMarkers(map) {
       <% @nearby_meetup_locations.each do |location| %>
-        var infowindow = new google.maps.InfoWindow({
+        {
+        const infowindow = new google.maps.InfoWindow({
           content: '<h2><%= location.place_name %></h2>'
         });  
-        marker = new google.maps.Marker({
+        const marker = new google.maps.Marker({
             position: {lat: <%= location.latitude %>, lng: <%= location.longitude%>},
             map: map
           });
         marker.addListener('click', function() {
           infowindow.open(map, marker);
         });
+        }
       <% end %>
     }
 </script>

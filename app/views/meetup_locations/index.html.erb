@@ -8,7 +8,10 @@
                 
                 <%=meetup_location.place_name%> 
                 at <%=meetup_location.place_address%>
-                at <%=meetup_location.date_time%>
+                at <%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>
+                <%if meetup_location.users.first == current_user%>
+                <%= link_to("Delete Ping", meetup_location_path(meetup_location.id), method: :delete, data: {confirm: "Sure?"})%>
+                <% end %>
                 </p>
             <% end %>
         </div>

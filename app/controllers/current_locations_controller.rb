@@ -1,5 +1,5 @@
 class CurrentLocationsController < ApplicationController
-
+    before_action :authenticate_user!
     def new
         @current_location = CurrentLocation.new
     end

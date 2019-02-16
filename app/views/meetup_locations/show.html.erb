@@ -1,10 +1,22 @@
-<div>
-    <div>
+<div class="container">
+    <%if @meetup_location.users.first == current_user%>
+    <div class="container">
         <h1>Thanks for creating a Ping!</h1>
     </div>
-    <div>
+    <div class="container">
         You're going to <%=@meetup_location.place_name%>
         at <%=@meetup_location.place_address%> 
-        at  <%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>   
+        at  <%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>
+        <%= link_to("Delete Ping", meetup_location_path(@meetup_location), method: :delete, data: {confirm: "Sure?"})%>
     </div>
+    <% else %>
+    <div class="container">
+        <h1>Thanks for joining a Ping!</h1>
+    </div>
+    <div class="container">
+        You're going to <%=@meetup_location.place_name%>
+        at <%=@meetup_location.place_address%> 
+        at  <%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>
+    </div>
+    <% end %>
 </div>

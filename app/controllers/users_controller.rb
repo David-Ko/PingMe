@@ -5,9 +5,14 @@ class UsersController < ApplicationController
     end
 
     def create
-        @user = User.create user_params
-            @user.save
-            redirect_to meetup_locations_path
+        @user = User.new user_params
+        if @user.save
+            flash[:primary] = "Welcome, #{@user.first_name}!"
+            session[:user_id] = @user.id
+            redirect_to root_path
+        else
+            render :new
+        end
     end
 
     private
