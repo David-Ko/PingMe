@@ -8,12 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
         let address = formData.get("meetup_location[place_address]")
         let rating = formData.get("meetup_location[place_rating]")
         let html = formData.get("meetup_location[place_html_attributions]")
-        // console.log(name)
+        let place_id = formData.get("meetup_location[place_id]")
         document.getElementById("details-at-bottom").style.visibility = 'visible';
         document.getElementById("name").innerText = `${name}`
         document.getElementById("address").innerText = `${address}`
         document.getElementById("rating").innerText = `${rating}`
-        document.getElementById("html").innerHTML = `${html}`
+        // if(html !== undefined){
+        //   document.getElementById("html").innerHTML = `${html}`
+        // } else {
+        //   document.getElementById("html").innerText = "Not available"
+        // }
       });
     });
 });

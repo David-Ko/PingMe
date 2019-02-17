@@ -3,10 +3,6 @@
     // max-width: 960px;
   }
   
-  /*
-   * Custom translucent site header
-   */
-  
   .site-header {
     background-color: rgba(0, 0, 0, .85);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -86,9 +82,15 @@
     text-align: right;
   }
 
-  #list{
+  #list, .details {
     overflow: auto;
-    height: 400px;
+    height: 600px;
+    margin-top: 10px;
+    flex-grow: 1;
+  }
+
+  .search-map {
+    flex-grow: 2;
   }
 
   .header{

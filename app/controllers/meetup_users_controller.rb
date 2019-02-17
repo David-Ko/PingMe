@@ -23,6 +23,22 @@ class MeetupUsersController < ApplicationController
             end
         end
     end
+
+    def destroy
+        @meetup_users = MeetupUser.where(meetup_location_id: params[:id])
+        @unjoin_user = @meetup_users.find_by(user_id: current_user.id)
+        # client = Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
+        #         from = ENV['TWILIO_PHONE_NUMBER']
+        #         to = current_user.phone_number 
+        #         client.messages.create(
+        #             from: from,
+        #             to: to,
+        #             body: "Someone left your Ping!"
+        #         )
+        @unjoin_user.destroy
+        redirect_to root_path   
+    end
+
     private
     def join_params
         params.require(:meetup_user).permit(:meetup_location)

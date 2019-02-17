@@ -1,58 +1,62 @@
 <%= javascript_pack_tag 'main' %>
-<div class="container border meetup-index">
-    <div id="map" class="container border m-3">
-        <p>Map placeholder</p>
+<div class="container-fluid border">
+    <p>There are <%=@places["results"].count%> <%=@venue%> venues <%=@distance.to_i / 1000%> km around you</p>
+</div>
+<div class="container-fluid border">
+    <div class="row">
+        <div class="container search-map col-8">
+            <div id="map" class="container border">
+                <p>Map placeholder</p>
+            </div>
+            <div class = "details container" id = "details-at-bottom">
+                <h1>Details</h1>
+                <p>Venue name: <b id="name"></b></p>
+                <p>Address: <b id="address"></b></p>
+                <p>Customer Rating: <b id="rating"></b></p>
+                <p>Photos by customers:</p>
+                <div id="html" target="_blank"></div>
+            </div>
+        </div>
+        <div class="container col-4" id="list">
+            <div>
+                <ol>
+                <% @places["results"].each do |place|%>
+                <li><%=form_with(model: @meetup_location, method: :post, local: true, :html => {:id => "location"}) do |form|%>
+                        <b><%= place["name"]%></b> @ <%= place["vicinity"]%>
+                    <div class="form-group d-flex mt-3">
+                        <%=form.label :Time%>
+                        <%=form.datetime_local_field :date_time, class: "form-control"%>
+                        <%=form.submit "Go", class: "btn btn-secondary"%>
+                        <%= form.hidden_field :place_name, :value => "#{place["name"]}" %>
+                        <%= form.hidden_field :place_address, :value => "#{place["vicinity"]}" %>
+                        <%= form.hidden_field :latitude, :value => "#{place["geometry"]["location"]["lat"]}" %>
+                        <%= form.hidden_field :longitude, :value => "#{place["geometry"]["location"]["lng"]}" %>
+                        <%= form.hidden_field :place_rating, :value => "#{place["rating"]}" %>
+                        <%= form.hidden_field :place_id, :value => "#{place["place_id"]}" %>
+                        <%#<%= form.hidden_field :place_html_attributions, :value => "#{place["photos"][0]["html_attributions"][0]}" %>
+                    </div>
+                    </li>
+                    <% end %>
+                <% end %>    
+                </ol>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="container mt-3 p-3" id="list">
-        <div>
-            <p>There are <%=@places["results"].count%> <%=@venue%> venues <%=@distance.to_i / 1000%> km around you</p>
-        </div>
-        <div>
-            <% @places["results"].each do |place|%>
-                <%=form_with(model: @meetup_location, method: :post, local: true, :html => {:id => "location"}) do |form|%>
-                    <%= place["name"]%>
-                    <%= place["vicinity"]%>
-                <div class="form-group mt-3">
-                    <%=form.label :Time%>
-                    <%=form.datetime_local_field :date_time, class: "form-control"%>
-                    <%=form.submit "Go", class: "btn btn-secondary"%>
-                    <%= form.hidden_field :place_name, :value => "#{place["name"]}" %>
-                    <%= form.hidden_field :place_address, :value => "#{place["vicinity"]}" %>
-                    <%= form.hidden_field :latitude, :value => "#{place["geometry"]["location"]["lat"]}" %>
-                    <%= form.hidden_field :longitude, :value => "#{place["geometry"]["location"]["lng"]}" %>
-                    <%= form.hidden_field :place_rating, :value => "#{place["rating"]}" %>
-                    <%= form.hidden_field :place_html_attributions, :value => "#{place["photos"][0]["html_attributions"][0]}" %>
-                </div>
-                <% end %>
-            <% end %>    
-            </ol>
-        </div>
-    </div>
-</div>
-<div class = "details container" id = "details-at-bottom">
-    <h1>Details</h1>
-    <p>Venue name</p>
-    <div id="name"></div>
-    <p>Address</p>
-    <div id="address"></div>
-    <p>Customer Rating:</p>
-    <div id="rating"></div>
-    <p>Photos by customers:</p>
-    <div id="html" target="_blank"></div>
-</div>
 
 <script defer >
     function initMap() {
-        var vancouver = {lat:49.2827, lng:-123.1207};
-        var map = new google.maps.Map(
+        let vancouver = {lat:49.2827, lng:-123.1207};
+        let map = new google.maps.Map(
             document.getElementById('map'), {zoom: 12, center: vancouver}
         );
-        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+        let image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
         navigator.geolocation.getCurrentPosition((position) => {
-            var location = {lat: position.coords.latitude, lng: position.coords.longitude}
-            var marker = new google.maps.Marker({position: location, map: map, icon: image});
-            var infowindow = new google.maps.InfoWindow({
+            let location = {lat: position.coords.latitude, lng: position.coords.longitude}
+            map.setCenter(location)
+            let marker = new google.maps.Marker({position: location, map: map, icon: image});
+            let infowindow = new google.maps.InfoWindow({
                 content: '<h2>You are here!</h2>'
             });
             marker.addListener('click', function() {

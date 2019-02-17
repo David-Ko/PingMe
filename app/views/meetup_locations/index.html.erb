@@ -13,6 +13,7 @@
                 <%if meetup_location.users.first == current_user%>
                 <%= link_to("Delete Ping", meetup_location_path(meetup_location.id), method: :delete, data: {confirm: "Sure?"})%>
                 <% end %>
+                <%= link_to("UnJoin", meetup_user_path(meetup_location.id), method: :delete, data: {confirm: "Really? Leaving this Ping?"})%>
                 </p>
             <% end %>
         </div>
