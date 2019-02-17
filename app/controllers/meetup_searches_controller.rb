@@ -19,8 +19,4 @@ class MeetupSearchesController < ApplicationController
     def meetup_searches_params
         params.permit(:distance, :latitude, :longitude)
     end
-
-
-
-
 end

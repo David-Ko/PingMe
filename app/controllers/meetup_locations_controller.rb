@@ -45,7 +45,7 @@ class MeetupLocationsController < ApplicationController
     end
 
     def meetup_params
-        params.require(:meetup_location).permit(:place_name, :place_address, :latitude, :longitude, :date_time)
+        params.require(:meetup_location).permit(:place_name, :place_address, :latitude, :longitude, :date_time, :host_id)
     end
 
     def authorized_user!

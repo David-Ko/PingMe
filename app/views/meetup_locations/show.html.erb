@@ -1,5 +1,5 @@
 <div class="container">
-    <%if @meetup_location.users.first == current_user%>
+    <%if @meetup_location.host_id == current_user.id%>
     <div class="container">
         <h1>Thanks for creating a Ping!</h1>
     </div>

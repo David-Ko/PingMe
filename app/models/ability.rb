@@ -33,6 +33,5 @@ class Ability
     can(:delete, MeetupLocation) do |meetup_location|
       meetup_location.users.first == user
     end
-
   end
 end

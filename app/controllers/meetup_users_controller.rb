@@ -36,7 +36,7 @@ class MeetupUsersController < ApplicationController
         #             body: "Someone left your Ping!"
         #         )
         @unjoin_user.destroy
-        redirect_to root_path   
+        redirect_to meetup_locations_path  
     end
 
     private

@@ -1,4 +1,3 @@
-
 <div class="container border ">
     <%if @meetup_locations.count > 0%>
     <div class="container border m-3">
@@ -6,14 +5,14 @@
         <div>
             <% @meetup_locations.each do |meetup_location|%>
                 <p>
-                
                 <%=meetup_location.place_name%> 
                 at <%=meetup_location.place_address%>
                 at <%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>
-                <%if meetup_location.users.first == current_user%>
+                <%if meetup_location.host_id == current_user.id%>
                 <%= link_to("Delete Ping", meetup_location_path(meetup_location.id), method: :delete, data: {confirm: "Sure?"})%>
-                <% end %>
+                <% else %>
                 <%= link_to("UnJoin", meetup_user_path(meetup_location.id), method: :delete, data: {confirm: "Really? Leaving this Ping?"})%>
+                <% end %>
                 </p>
             <% end %>
         </div>
@@ -24,7 +23,6 @@
         <div>
             <% @old_meetup_locations.each do |old_meetup_locations|%>
                 <p>
-                
                 <%=old_meetup_locations.place_name%> 
                 at <%=old_meetup_locations.place_address%>
                 at <%=old_meetup_locations.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>
