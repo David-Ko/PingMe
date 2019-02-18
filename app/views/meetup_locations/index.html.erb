@@ -1,33 +1,88 @@
 <div class="container border ">
     <%if @meetup_locations.count > 0%>
     <div class="container border m-3">
-        <h2>You are going to:</h2>
+        <h3>You are going to:</h3>
         <div>
-            <% @meetup_locations.each do |meetup_location|%>
-                <p>
-                <%=meetup_location.place_name%> 
-                at <%=meetup_location.place_address%>
-                at <%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>
-                <%if meetup_location.host_id == current_user.id%>
-                <%= link_to("Delete Ping", meetup_location_path(meetup_location.id), method: :delete, data: {confirm: "Sure?"})%>
-                <% else %>
-                <%= link_to("UnJoin", meetup_user_path(meetup_location.id), method: :delete, data: {confirm: "Really? Leaving this Ping?"})%>
-                <% end %>
-                </p>
-            <% end %>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Venue</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Guest</th>
+                        <th scope="col">Occupation</th>
+                        <th scope="col">Delete?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @meetup_locations.each do |meetup_location|%>
+                        <tr>
+                            <th scope="row"><%=meetup_location.place_name%></th>
+                            <td><%=meetup_location.place_address%></td>
+                            <td><%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
+                            <% if meetup_location.users.count == 2%>
+                                <% if meetup_location.host_id != current_user.id%>
+                                <td><%=meetup_location.users.first.first_name%></td>
+                                <% else %>
+                                <td><%=meetup_location.users.last.first_name%>
+                                <% end %>
+                            <%else%>
+                            <td>Guest pending</td>
+                            <% end %>
+                            <% if meetup_location.users.count == 2%>
+                                <% if meetup_location.host_id != current_user.id%>
+                                <td><%=meetup_location.users.first.profession%></td>
+                                <% else %>
+                                <td><%=meetup_location.users.last.profession%>
+                                <% end %>
+                            <%else%>
+                            <td>Not Available</td>
+                            <% end %>
+                            <%if meetup_location.host_id == current_user.id%>
+                            <td><%= link_to("Delete Ping", meetup_location_path(meetup_location.id), method: :delete, data: {confirm: "Sure?"})%></td>
+                            <%else%>
+                            <td><%= link_to("UnJoin", meetup_user_path(meetup_location.id), method: :delete, data: {confirm: "Really? Leaving this Ping?"})%></td>
+                            <% end %>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
         </div>
     </div>
     <% end %>
     <div class="container border m-3">
-        <h2>You previously went to:</h2>
+        <h3>You previously went to:</h3>
         <div>
-            <% @old_meetup_locations.each do |old_meetup_locations|%>
-                <p>
-                <%=old_meetup_locations.place_name%> 
-                at <%=old_meetup_locations.place_address%>
-                at <%=old_meetup_locations.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>
-                </p>
-            <% end %>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Venue</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Guest</th>
+                        <th scope="col">Occupation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @old_meetup_locations.each do |old_meetup_location|%>
+                        <tr>
+                            <th scope="row"><%=old_meetup_location.place_name%></th>
+                                <td><%=old_meetup_location.place_address%></td>
+                                <td><%=old_meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
+                                <% if old_meetup_location.users.count == 2%>
+                                <td><%=old_meetup_location.users.last.first_name%></td>
+                                <%else%>
+                                <td>Guest pending</td>
+                                <% end %>
+                                <% if old_meetup_location.users.count == 2%>
+                                <td><%=old_meetup_location.users.last.profession%></td>
+                                <%else%>
+                                <td>Not Available</td>
+                            <% end %>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

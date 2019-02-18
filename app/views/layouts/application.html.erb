@@ -24,8 +24,8 @@
         <span class="py-2 d-none d-md-inline-block text-white-50" >Hi, <%= current_user.first_name%>!</span>
         <%= link_to 'Log Out', session_path, method: :delete, data: {confirm: "Are you sure?"}, class: "py-2 d-none d-md-inline-block"%>
       <% else %>
-        <%= link_to 'Sign Up', new_user_path, class: "py-2 d-none d-md-inline-block"%>
-        <%= link_to 'Log In', new_session_path, class: "py-2 d-none d-md-inline-block"%>
+        <%= link_to "Sign Up", new_user_path, class: "py-2 d-none d-md-inline-block", 'data-target' => "#exampleModal-signup", 'data-toggle' => "modal", 'data-dismiss' => "modal" %>
+        <%= link_to "Log In", new_session_path, class: "py-2 d-none d-md-inline-block", 'data-target' => "#exampleModal-login", 'data-toggle' => "modal", 'data-dismiss' => "modal" %>
       <% end %>
       <small></small>
     </div>

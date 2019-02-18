@@ -1,7 +1,8 @@
 <%= javascript_pack_tag 'main' %>
-<div class="container-fluid border">
-    <p>There are <%=@places["results"].count%> <%=@venue%> venues <%=@distance.to_i / 1000%> km around you</p>
+<div class="container-fluid border m-3">
+    <h3>There are <b class="searches-index"><%=@places["results"].count%> <%=@venue%></b> venues <b class="searches-index"><%=@distance.to_i / 1000%></b> km around you</h3>
 </div>
+
 <div class="container-fluid border">
     <div class="row">
         <div class="container search-map col-8">
@@ -24,8 +25,8 @@
                 <li><%=form_with(model: @meetup_location, method: :post, local: true, :html => {:id => "location"}) do |form|%>
                         <b><%= place["name"]%></b> @ <%= place["vicinity"]%>
                     <div class="form-group d-flex mt-3">
-                        <%=form.label :Time%>
-                        <%=form.datetime_local_field :date_time, class: "form-control"%>
+                        <%=form.label :Time, "Time: ", class: "form-control time", style: "border 0"%>
+                        <%=form.datetime_local_field :date_time, class: "form-control mr-2"%>
                         <%=form.submit "Go", class: "btn btn-secondary"%>
                         <%= form.hidden_field :place_name, :value => "#{place["name"]}" %>
                         <%= form.hidden_field :place_address, :value => "#{place["vicinity"]}" %>

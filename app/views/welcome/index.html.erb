@@ -1,16 +1,90 @@
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center">
     <div class="col-md-5 p-lg-5 mx-auto my-5">
-      <%#<%= video_tag "video.mp4", controls: false, autoplay: true, muted: 
-      true, loop: true, id: "bgvideobg", class: "fullscreen-bg-video", type: 
-      "video/mp4" %> 
-      <%#<video controls="controls">
-      <source class="video" src="assets/video2.mp4" type="video/mp4">
-      </video>%>
-      <h1 class="display-4 font-weight-normal">Ping me</h1>
-      <p class="lead font-weight-normal">Leading app to meet like-minded people around you.</p>
-      <% if !user_signed_in?%>
-      <%= link_to 'Sign Up', new_user_path, class: "btn btn-outline-secondary mr-3" %>
-      <%= link_to 'Log In', new_session_path, class: "btn btn-outline-secondary" %>
-      <% end %>
+      <article>
+        <h2 class="display-4 font-weight-normal">Ping me</h2>
+        <h4 class="moto">A leading app for working professional to expand their horizons and network</h4>
+        <% if !user_signed_in?%>
+        <button type="button" class="btn btn-secondary mr-3" data-toggle="modal" data-target="#exampleModal-signup">
+          Sign up
+        </button>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal-login">
+          Log In
+        </button>
+        <% end %>
+      </article>
+      <video autoplay loop id="video-background" muted plays-inline>
+        <source class="video" src="assets/video.mp4" type="video/mp4">
+      </video>
     </div>
+</div>
+
+<div class="modal fade" id="exampleModal-login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Log In</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <%= form_with(url: session_path, local: true) do |form|%>
+              <div class="form-group mt-3">
+                  <%= form.label :email %>
+                  <%= form.text_field :email, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                  <%= form.label :password %>
+                  <%= form.password_field :password, class: "form-control" %>
+              </div>
+                  <%= form.submit "Log in", class: "btn btn-secondary"%>
+          <% end %>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal-signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <%= form_with(model: @user, local: true) do |form|%>
+              <div class="form-group mt-3">
+                  <b><%= form.label :first_name %></b>
+                  <%= form.text_field :first_name, class: "form-control" %>
+              </div>
+              <div class="form-group mt-3">
+                  <b><%= form.label :last_name %></b>
+                  <%= form.text_field :last_name, class: "form-control" %>
+              </div>
+              <div class="form-group mt-3">
+                  <b><%= form.label :profession %></b>
+                  <%= form.text_field :profession, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                  <b><%= form.label :email %></b>
+                  <%= form.text_field :email, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                  <b><%= form.label :password %></b>
+                  <%= form.password_field :password, class: "form-control" %>
+              </div> 
+              <div class="form-group">
+                  <b><%= form.label :password_confirmation %></b>
+                  <%= form.password_field :password_confirmation, class: "form-control" %>
+              </div>
+                  <%= form.submit "Sign Up", class: "btn btn-secondary"%>
+          <% end %>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
 </div>

@@ -17,10 +17,6 @@
     text-decoration: none;
   }
   
-  /*
-   * Dummy devices (replace them with your own or something else entirely!)
-   */
-  
   .product-device {
     position: absolute;
     right: 10%;
@@ -52,10 +48,6 @@
     background-color: #e5e5e5;
   }
   
-  
-  /*
-   * Extra utilities
-   */
   
   .flex-equal > * {
     -ms-flex: 1;
@@ -120,6 +112,61 @@
     justify-content: center;
   }
 
+  body {
+    margin: 0;
+    padding: 0;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  
+  #video-background {
+    position: fixed;
+    right: 0; 
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    width: auto; 
+    height: auto;
+    z-index: -100;
+  }
+  
+  article {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 10px;
+  }
+  
+  h1 {
+    position: absolute;
+    top: 60%;
+    width: 100%;
+    font-size: 36px;
+    letter-spacing: 3px;
+    color: #fff;
+    font-family: Oswald, sans-serif;
+    text-align: center;
+  }
+  
+  h1 span {
+    font-family: sans-serif;
+    letter-spacing: 0;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  h1 span a {
+    color: #fff;
+  }
+
+  h2, h4 {
+    color: white;
+  }
+
+
   .index {
     justify-content: center;
   }
@@ -135,4 +182,16 @@
 
   #user-name{
     color: white;
+  }
+
+  .form-control.time {
+    border: 0;
+  }
+
+  .searches-index{
+    border-bottom: 5px black solid;
+  }
+
+  .display-4, .moto {
+    color: black;
   }
