@@ -1,15 +1,18 @@
-<div class="container border meetup-index">
-    <div class="container border m-3">
-        <%=form_with(url: meetup_searches_path, method: :get, local: true) do |form|%>
-        <div class="form-group mt-3">
-            <%=form.label :Distance_in_km%>
-            <%=form.text_field :distance, class: "form-control", placeholder: "e.g. 5"%>
-        </div>
-        <%= form.hidden_field :longitude, class: "longitude" %>
-        <%= form.hidden_field :latitude, class: "latitude" %>
-        <%=form.submit "Search", class: "btn btn-secondary"%>
+<div> <%= image_tag 'search', id: "search-show" %> 
 
-        <% end %>
+    <div class="container mt-5 meetup-index">
+        <div class="container m-3">
+            <%=form_with(url: meetup_searches_path, method: :get, local: true) do |form|%>
+            <div class="form-group mt-3">
+                <%=form.label :Distance_in_km%>
+                <%=form.text_field :distance, class: "form-control", placeholder: "e.g. 5"%>
+            </div>
+            <%= form.hidden_field :longitude, class: "longitude" %>
+            <%= form.hidden_field :latitude, class: "latitude" %>
+            <%=form.submit "Search", class: "btn btn-secondary"%>
+
+            <% end %>
+        </div>
     </div>
 </div>
 

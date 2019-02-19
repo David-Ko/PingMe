@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container mt-5">
     <%if @meetup_location.host_id == current_user.id%>
-    <div class="container">
-        <h1>Thanks for creating a Ping!</h1>
+    <div class="container m-3">
+        <h3>Thanks for creating a Ping!</h3>
     </div>
     <table class="table">
         <thead class="thead-dark">
@@ -30,8 +30,8 @@
   
     <% else %>
 
-    <div class="container">
-        <h1>Thanks for joining a Ping!</h1>
+    <div class="container mt-5">
+        <h3>Thanks for joining a Ping!</h3>
     </div>
     <table class="table">
         <thead class="thead-dark">
@@ -48,8 +48,8 @@
                 <th scope="row"><%=@meetup_location.place_name%></th>
                 <td><%=@meetup_location.place_address%></td>
                 <td><%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
-                <td><%=@meetup_location.users.first.first_name%></td>
-                <td><%=@meetup_location.users.first.profession%></td>
+                <td><%=@host.first_name%></td>
+                <td><%=@host.profession%></td>
             </tr>
         </tbody>
     </table>    

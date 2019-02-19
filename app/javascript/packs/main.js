@@ -20,4 +20,22 @@ document.addEventListener('DOMContentLoaded', () => {
         // }
       });
     });
+
+    var objPropLogEl = document.querySelector('.js-object-log');
+
+      var myObject = {
+        prop1: 0,
+        prop2: '0%'
+      }
+
+      anime({
+        targets: myObject,
+        prop1: 50,
+        prop2: '100%',
+        easing: 'linear',
+        round: 1,
+        update: function() {
+          objPropLogEl.innerHTML = JSON.stringify(myObject);
+        }
+      });
 });

@@ -53,7 +53,7 @@
             map.setCenter(location)
             var marker = new google.maps.Marker({position: location, map: map, icon: image});
             var infowindow = new google.maps.InfoWindow({
-                content: '<h2>You are here!</h2>'
+                content: '<h5>You are here!</h5>'
             });
             marker.addListener('click', function() {
                 infowindow.open(map, marker);
@@ -67,7 +67,7 @@
         {
         <% if location.users.count < 2 %>
         const infowindow = new google.maps.InfoWindow({
-          content: '<h2><%= location.place_name %></h2>'
+          content: '<h5><%= location.place_name %></h5>'
         });  
         const marker = new google.maps.Marker({
             position: {lat: <%= location.latitude %>, lng: <%= location.longitude%>},
@@ -82,6 +82,6 @@
 
     }
 </script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=YourAPIKey&callback=initMap"
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASlWSWWSeh7KDirc6UrB1qVy3ngCWVVZ0&callback=initMap"
   type="text/javascript">
 </script>

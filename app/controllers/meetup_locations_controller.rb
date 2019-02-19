@@ -6,6 +6,7 @@ class MeetupLocationsController < ApplicationController
     def index
         @user = current_user
         @meetup_locations = @user.meetup_locations.where("date_time >= ?", Time.now).order(created_at: :desc)
+        
         @old_meetup_locations = @user.meetup_locations.where("date_time < ?", Time.now).order(created_at: :desc)
     end
     
@@ -21,6 +22,7 @@ class MeetupLocationsController < ApplicationController
 
     def show
         @meetup_location = MeetupLocation.find params[:id]
+        @host = User.find(@meetup_location.host_id)
     end
 
     def destroy

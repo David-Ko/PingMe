@@ -17,6 +17,9 @@ class MeetupUsersController < ApplicationController
                 #     to: to,
                 #     body: "Someone joined your Ping!"
                 # )
+                # meetup_id = @meetup_user.meetup_location_id
+                # meetup = MeetupLocation.find(meetup_id)
+                # @host = User.find(meetup.host_id)
                 redirect_to meetup_location_path(@meetup_user.meetup_location)
             else
                 redirect_to root_path
