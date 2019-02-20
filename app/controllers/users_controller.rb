@@ -23,6 +23,7 @@ class UsersController < ApplicationController
             :last_name, 
             :email, 
             :profession,
+            :phone_number,
             :password, 
             :password_confirmation
         )
