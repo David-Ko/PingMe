@@ -53,7 +53,7 @@
         <% end %>
         <div class="container mt-5 mr-3 ml-3">
             <h3>You previously went to:</h3>
-            <div>
+            <div class="details">
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
@@ -79,7 +79,7 @@
                                     <td><%=old_meetup_location.users.last.profession%></td>
                                     <%else%>
                                     <td>Not Available</td>
-                                <% end %>
+                                    <% end %>
                             </tr>
                         <% end %>
                     </tbody>

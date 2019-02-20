@@ -5,9 +5,9 @@ class MeetupLocationsController < ApplicationController
     
     def index
         @user = current_user
-        @meetup_locations = @user.meetup_locations.where("date_time >= ?", Time.now).order(created_at: :desc)
+        @meetup_locations = @user.meetup_locations.where("date_time >= ?", Time.now).order(date_time: :asc)
         
-        @old_meetup_locations = @user.meetup_locations.where("date_time < ?", Time.now).order(created_at: :desc)
+        @old_meetup_locations = @user.meetup_locations.where("date_time < ?", Time.now).order(date_time: :asc)
     end
     
     def create
@@ -27,14 +27,14 @@ class MeetupLocationsController < ApplicationController
 
     def destroy
         @meetup_location = MeetupLocation.find params[:id]
-        # client = Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
-        # from = ENV['TWILIO_PHONE_NUMBER']
-        # to = @meetup_location.users.last.phone_number 
-        # client.messages.create(
-        #     from: from,
-        #     to: to,
-        #     body: "Sorry, this Ping has been cancelled by host!"
-        #     )
+        client = Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
+        from = ENV['TWILIO_PHONE_NUMBER']
+        to = @meetup_location.users.last.phone_number 
+        client.messages.create(
+            from: from,
+            to: to,
+            body: "Sorry, this Ping has been cancelled by host!"
+            )
         @meetup_location.destroy
         flash[:primary] = "We're sorry to see that you deleted your Ping."
         redirect_to meetup_locations_path

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const links = document.querySelectorAll('#location');
     links.forEach(function(link){
-      link.addEventListener('click', (event)=>{
+      link.addEventListener('mouseenter', (event)=>{
         const { target } = event;
         const formData = new FormData(target);
         let name = formData.get("meetup_location[place_name]")
@@ -13,29 +13,23 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("name").innerText = `${name}`
         document.getElementById("address").innerText = `${address}`
         document.getElementById("rating").innerText = `${rating}`
-        // if(html !== undefined){
-        //   document.getElementById("html").innerHTML = `${html}`
-        // } else {
-        //   document.getElementById("html").innerText = "Not available"
-        // }
+        target.classList.add("white")
+      });
+    });
+    links.forEach(function(link){
+      link.addEventListener('mouseleave', (event)=>{
+        const { target } = event;
+        document.getElementById("details-at-bottom").style.visibility = 'hidden';
+        target.classList.remove("white")
       });
     });
 
-    var objPropLogEl = document.querySelector('.js-object-log');
-
-      var myObject = {
-        prop1: 0,
-        prop2: '0%'
-      }
-
-      anime({
-        targets: myObject,
-        prop1: 50,
-        prop2: '100%',
-        easing: 'linear',
-        round: 1,
-        update: function() {
-          objPropLogEl.innerHTML = JSON.stringify(myObject);
-        }
-      });
+      document.querySelectorAll(".location-name").forEach(node => {
+        node.addEventListener("mouseenter", event => {
+            event.currentTarget.classList.add("white")
+        });
+        node.addEventListener("mouseleave", event => {
+            event.currentTarget.classList.remove("white")
+        });
+    });
 });

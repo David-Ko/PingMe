@@ -1,51 +1,53 @@
-<div class="index">    
-    <div class="container border m-3">
-        <h3>Meetups near you</h3>
-    </div>    
-    <div id="map" class="container border m-3">
-        <p>Map placeholder</p>
-    </div> 
-    <div class="container border m-3">
-        <p>
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Venue</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Host</th>
-                        <th scope="col">Occupation</th>
-                        <th scope="col">Join?</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% @nearby_meetup_locations.each do |meetup_location|%>
-                        <p>
-                            <% if meetup_location.users.count < 2 %>
-                                <%=form_with(model: @meetup_user, method: :post, local: true) do |form|%>
-                                    <tr>
-                                        <th scope="row"><%=meetup_location.place_name%></th>
-                                        <td><%=meetup_location.place_address%></td>
-                                        <td><%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
-                                        <td><%=meetup_location.users.first.first_name%></td>
-                                        <td><%=meetup_location.users.first.profession%></td>
-                                        <%= form.hidden_field :meetup_location, :value => "#{meetup_location.id}" %>
-                                        <td><%=form.submit "Yes!", class: "btn btn-secondary"%></td>
-                                    </tr>
+<div> <%= image_tag 'topdown4', id: "meetuplocation-show" %> 
+    <div class="container-fluid">
+        <h3>Pings near you</h3>
+    </div>  
+    <div class="container-fluid">
+        <div id="map-search-meetups" class="container-fluid">
+            <p>Map placeholder</p>
+        </div> 
+        <div class="container-fluid details-meetup-searches">
+            <p>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Venue</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Host</th>
+                            <th scope="col">Occupation</th>
+                            <th scope="col">Join?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @nearby_meetup_locations.each do |meetup_location|%>
+                            <p>
+                                <% if meetup_location.users.count < 2 %>
+                                    <%=form_with(model: @meetup_user, method: :post, local: true) do |form|%>
+                                        <tr>
+                                            <th scope="row"><%=meetup_location.place_name%></th>
+                                            <td><%=meetup_location.place_address%></td>
+                                            <td><%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
+                                            <td><%=meetup_location.users.first.first_name%></td>
+                                            <td><%=meetup_location.users.first.profession%></td>
+                                            <%= form.hidden_field :meetup_location, :value => "#{meetup_location.id}" %>
+                                            <td><%=form.submit "Yes!", class: "btn btn-secondary"%></td>
+                                        </tr>
+                                    <% end %>
                                 <% end %>
-                            <% end %>
-                        </p>
-                    <% end %>
-                </tbody>
-            </table>    
-        </p>
-    </div>
-</div>
+                            </p>
+                        <% end %>
+                    </tbody>
+                </table>    
+            </p>
+        </div>
+    </div> 
+</div> 
 <script defer >
     function initMap() {
         var vancouver = {lat:49.2827, lng:-123.1207};
         var map = new google.maps.Map(
-            document.getElementById('map'), {zoom: 12, center: vancouver}
+            document.getElementById('map-search-meetups'), {zoom: 12, center: vancouver}
         );
         var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
         navigator.geolocation.getCurrentPosition((position) => {
@@ -55,8 +57,11 @@
             var infowindow = new google.maps.InfoWindow({
                 content: '<h5>You are here!</h5>'
             });
-            marker.addListener('click', function() {
+            marker.addListener('mouseover', function() {
                 infowindow.open(map, marker);
+            });
+            marker.addListener('mouseout', function() {
+                infowindow.close(map, marker);
             });
         })
         setMarkers(map);
@@ -67,14 +72,18 @@
         {
         <% if location.users.count < 2 %>
         const infowindow = new google.maps.InfoWindow({
-          content: '<h5><%= location.place_name %></h5>'
+          content: '<h5><p><%= location.place_name %></p></h5><p><%= location.place_address %></p><p><%= location.users.first.first_name %> - <%= location.users.first.profession %></p>'
         });  
         const marker = new google.maps.Marker({
             position: {lat: <%= location.latitude %>, lng: <%= location.longitude%>},
             map: map
           });
-        marker.addListener('click', function() {
+        marker.addListener('mouseover', function() {
           infowindow.open(map, marker);
+
+        });
+        marker.addListener('mouseout', function() {
+          infowindow.close(map, marker);
         });
         <% end %>
         }
@@ -82,6 +91,6 @@
 
     }
 </script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASlWSWWSeh7KDirc6UrB1qVy3ngCWVVZ0&callback=initMap"
+<script async src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_API_KEY']%>&callback=initMap"
   type="text/javascript">
 </script>

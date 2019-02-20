@@ -1,51 +1,49 @@
 <%= javascript_pack_tag 'main' %>
-<div class="container-fluid border m-3">
-    <h3>There are <b class="searches-index"><%=@places["results"].count%> <%=@venue%></b> venues <b class="searches-index"><%=@distance.to_i / 1000%></b> km around you</h3>
-</div>
+<div> <%= image_tag 'topdown3', id: "meetuplocation-show" %>
+    <div class="container-fluid m-3 title">
+        <h3>There are <b class="searches-index"><%=@places["results"].count%> <%=@venue%></b> venues <b class="searches-index"><%=@distance.to_i / 1000%></b> km around you</h3>
+    </div>
 
-<div class="container-fluid border">
-    <div class="row">
-        <div class="container search-map col-8">
-            <div id="map" class="container border">
-                <p>Map placeholder</p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="container search-map col-6">
+                <div id="map" class="container">
+                    <p>Map placeholder</p>
+                </div>
+                <div class = "details container" id = "details-at-bottom">
+                    <h3>Details</h3>
+                    <p>Venue name: <b id="name"></b></p>
+                    <p>Address: <b id="address"></b></p>
+                    <p>Customer Rating: <b id="rating"></b><b>/5</b></p>
+                </div>
             </div>
-            <div class = "details container" id = "details-at-bottom">
-                <h1>Details</h1>
-                <p>Venue name: <b id="name"></b></p>
-                <p>Address: <b id="address"></b></p>
-                <p>Customer Rating: <b id="rating"></b></p>
-                <p>Photos by customers:</p>
-                <div id="html" target="_blank"></div>
-            </div>
-        </div>
-        <div class="container col-4" id="list">
-            <div>
-                <ol>
-                <% @places["results"].each do |place|%>
-                <li><%=form_with(model: @meetup_location, method: :post, local: true, :html => {:id => "location"}) do |form|%>
-                        <b><%= place["name"]%></b> @ <%= place["vicinity"]%>
-                    <div class="form-group d-flex mt-3">
-                        <%=form.label :Time, "Time: ", class: "form-control time", style: "border 0"%>
-                        <%=form.datetime_local_field :date_time, class: "form-control mr-2"%>
-                        <%=form.submit "Go", class: "btn btn-secondary"%>
-                        <%= form.hidden_field :place_name, :value => "#{place["name"]}" %>
-                        <%= form.hidden_field :place_address, :value => "#{place["vicinity"]}" %>
-                        <%= form.hidden_field :latitude, :value => "#{place["geometry"]["location"]["lat"]}" %>
-                        <%= form.hidden_field :longitude, :value => "#{place["geometry"]["location"]["lng"]}" %>
-                        <%= form.hidden_field :place_rating, :value => "#{place["rating"]}" %>
-                        <%= form.hidden_field :place_id, :value => "#{place["place_id"]}" %>
-                        <%= form.hidden_field :host_id, :value => "#{current_user.id}" %>
-                        <%#<%= form.hidden_field :place_html_attributions, :value => "#{place["photos"][0]["html_attributions"][0]}" %>
-                    </div>
-                    </li>
-                    <% end %>
-                <% end %>    
-                </ol>
+            <div class="container col-6" id="list">
+                <div>
+                    <ol>
+                    <% @places["results"].each do |place|%>
+                    <li><%=form_with(model: @meetup_location, method: :post, local: true, :html => {:id => "location"}) do |form|%>
+                            <b><%= place["name"]%></b> @ <%= place["vicinity"]%>
+                        <div class="form-group d-flex mt-3">
+                            <%=form.label :Time, "Time: ", class: "form-control time", style: "border 0"%>
+                            <%=form.datetime_local_field :date_time, class: "form-control mr-2"%>
+                            <%=form.submit "Go", class: "btn btn-secondary"%>
+                            <%= form.hidden_field :place_name, :value => "#{place["name"]}" %>
+                            <%= form.hidden_field :place_address, :value => "#{place["vicinity"]}" %>
+                            <%= form.hidden_field :latitude, :value => "#{place["geometry"]["location"]["lat"]}" %>
+                            <%= form.hidden_field :longitude, :value => "#{place["geometry"]["location"]["lng"]}" %>
+                            <%= form.hidden_field :place_rating, :value => "#{place["rating"]}" %>
+                            <%= form.hidden_field :place_id, :value => "#{place["place_id"]}" %>
+                            <%= form.hidden_field :host_id, :value => "#{current_user.id}" %>
+                        </div>
+                        </li>
+                        <% end %>
+                    <% end %>    
+                    </ol>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <script defer >
     function initMap() {
@@ -61,8 +59,11 @@
             let infowindow = new google.maps.InfoWindow({
                 content: '<h5>You are here!</h5>'
             });
-            marker.addListener('click', function() {
+            marker.addListener('mouseover', function() {
                 infowindow.open(map, marker);
+            });
+            marker.addListener('mouseout', function() {
+                infowindow.close(map, marker);
             });
         })
         setMarkers(map);
@@ -74,20 +75,28 @@
       <% @places["results"].each do |place| %>
       {
         const infowindow = new google.maps.InfoWindow({
-          content: '<h5><%= place["name"] %></h5>'
+          content: '<h5><p><%= place["name"]%></p><p><%= place["vicinity"]%></p><p>User rating: <%= place["rating"]%>/5</p>'
         });  
         const marker = new google.maps.Marker({
             position: {lat: <%= place["geometry"]["location"]["lat"] %>, lng: <%= place["geometry"]["location"]["lng"]%>},
             map: map
           });
-        marker.addListener('click', function() {
+        marker.addListener('mouseover', function() {
           infowindow.open(map, marker);
+
         });
+        marker.addListener('mouseout', function() {
+          infowindow.close(map, marker);
+        });
+
+        marker.addListener('mouseenter', function(){
+            infowindow.classList.add('pink')
+        })
       }
       <% end %>
     }
 </script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASlWSWWSeh7KDirc6UrB1qVy3ngCWVVZ0&callback=initMap"
+<script async src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_API_KEY']%>&callback=initMap"
   type="text/javascript">
 </script>
 

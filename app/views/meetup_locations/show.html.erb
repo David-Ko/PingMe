@@ -1,57 +1,57 @@
-<div class="container mt-5">
-    <%if @meetup_location.host_id == current_user.id%>
-    <div class="container m-3">
-        <h3>Thanks for creating a Ping!</h3>
-    </div>
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Venue</th>
-                <th scope="col">Address</th>
-                <th scope="col">Date</th>
-                <th scope="col">Guest</th>
-                <th scope="col">Delete?</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row"><%=@meetup_location.place_name%></th>
-                <td><%=@meetup_location.place_address%></td>
-                <td><%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
-                <% if @meetup_location.users.count == 2%>
-                <td><%=@meetup_location.users.last.first_name%></td>
-                <%else%>
-                <td>Guest pending</td>
-                <% end %>
-                <td><%= link_to("Delete Ping", meetup_location_path(@meetup_location), method: :delete, data: {confirm: "Sure?"}, :class => "btn btn-secondary")%></td>
-            </tr>
-        </tbody>
-    </table>
-  
-    <% else %>
-
+<div> <%= image_tag 'topdown2', id: "meetuplocation-show" %>
     <div class="container mt-5">
-        <h3>Thanks for joining a Ping!</h3>
+        <%if @meetup_location.host_id == current_user.id%>
+        <div class="container m-3">
+            <h3>Thanks for creating a Ping!</h3>
+        </div>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Venue</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Guest</th>
+                    <th scope="col">Delete?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row"><%=@meetup_location.place_name%></th>
+                    <td><%=@meetup_location.place_address%></td>
+                    <td><%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
+                    <% if @meetup_location.users.count == 2%>
+                    <td><%=@meetup_location.users.last.first_name%></td>
+                    <%else%>
+                    <td>Guest pending</td>
+                    <% end %>
+                    <td><%= link_to("Delete Ping", meetup_location_path(@meetup_location), method: :delete, data: {confirm: "Sure?"}, :class => "btn btn-secondary")%></td>
+                </tr>
+            </tbody>
+        </table>
+        <% else %>
+        <div class="container mt-5">
+            <h3>Thanks for joining a Ping!</h3>
+        </div>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Venue</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Host</th>
+                    <th scope="col">Occupation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row"><%=@meetup_location.place_name%></th>
+                    <td><%=@meetup_location.place_address%></td>
+                    <td><%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
+                    <td><%=@host.first_name%></td>
+                    <td><%=@host.profession%></td>
+                </tr>
+            </tbody>
+        </table>    
+        <% end %>
     </div>
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Venue</th>
-                <th scope="col">Address</th>
-                <th scope="col">Date</th>
-                <th scope="col">Host</th>
-                <th scope="col">Occupation</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row"><%=@meetup_location.place_name%></th>
-                <td><%=@meetup_location.place_address%></td>
-                <td><%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
-                <td><%=@host.first_name%></td>
-                <td><%=@host.profession%></td>
-            </tr>
-        </tbody>
-    </table>    
-    <% end %>
 </div>

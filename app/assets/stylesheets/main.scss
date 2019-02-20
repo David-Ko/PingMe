@@ -1,8 +1,3 @@
-
-.container {
-    // max-width: 960px;
-  }
-  
   .site-header {
     background-color: rgba(0, 0, 0, .85);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -48,7 +43,6 @@
     background-color: #e5e5e5;
   }
   
-  
   .flex-equal > * {
     -ms-flex: 1;
     flex: 1;
@@ -62,7 +56,6 @@
   
   .overflow-hidden { overflow: hidden; }
   
-
   .meetup-index{
     display: flex;
     // background-color: lemonchiffon;
@@ -91,6 +84,11 @@
 
   #map{
     height: 400px;
+    border-radius: 15px;
+  }
+
+  #map-search-meetups{
+    height: 300px;
     border-radius: 15px;
   }
 
@@ -149,23 +147,6 @@
     font-family: Oswald, sans-serif;
     text-align: center;
   }
-  
-  // h1 span {
-  //   font-family: sans-serif;
-  //   letter-spacing: 0;
-  //   font-weight: 300;
-  //   font-size: 16px;
-  //   line-height: 24px;
-  // }
-  
-  // h1 span a {
-  //   color: #fff;
-  // }
-
-  // h2, h4 {
-  //   color: white;
-  // }
-
 
   .index {
     justify-content: center;
@@ -173,7 +154,6 @@
 
   .details {
     height: 200px;
-
   }
 
   #details-at-bottom {
@@ -186,6 +166,8 @@
 
   .form-control.time {
     border: 0;
+    margin-left: auto;
+    text-align: right;
   }
 
   .searches-index{
@@ -195,36 +177,31 @@
   .display-4, .moto {
     color: black;
     font-family: Georgia, Times, 'Times New Roman', serif;
-
   }
 
   .js-object-log{
     height: 400px;
   }
 
-  .test {
+  .banner {
     background-color: rgba(29, 135, 202, 0.85);
     color: white;
     text-align: center;
     justify-content: center;
     padding: 20px;
     margin-top: 120px;
-    // display: flex;
   }
 
   .landing-page-div-1{
-    // color: white;
     text-align: center;
     justify-content: center;
     padding: 20px;
     margin-top: 120px;
-    // display: flex;
   }
   .landing-page-catchwords{
     border-radius: 150px;
     height: 300px;
     width: 300px;
-    // overflow: auto;
   }
 
   .landing-page-catchwords-sm{
@@ -232,8 +209,6 @@
     height: 250px;
     width: 250px;
     margin-top: 30px;
-    // overflow: auto;
-
   }
 
   .word {
@@ -279,4 +254,28 @@
     z-index: -100;
     opacity: 0.3;
   }
+
+  .white {
+    background-color: rgba(233, 234, 235, 0.85);
+    cursor: pointer;
+  }
+
+  #location {
+    cursor: pointer;
+  }
   
+  .title{
+    text-align: auto
+  }
+
+  .details-meetup-searches {
+    overflow: auto;
+    height: 50vh;
+    margin-top: 10px;
+  }
+
+  thead tr:nth-child(1) th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
