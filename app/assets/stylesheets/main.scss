@@ -58,19 +58,25 @@
   
   .meetup-index{
     display: flex;
-    // background-color: lemonchiffon;
     justify-content: center;
     min-height: 300px;
+    z-index: 1;
   }
 
   #message{
     text-align: right;
   }
 
-  #list, .details {
+  #list {
     overflow: auto;
-    height: 600px;
+    height: 500px;
     margin-top: 10px;
+    flex-grow: 1;
+  }
+
+  .details-past, .details-future {
+    overflow: auto;
+    height: 400px;
     flex-grow: 1;
   }
 
@@ -90,6 +96,16 @@
   #map-search-meetups{
     height: 300px;
     border-radius: 15px;
+  }
+
+  #map-new{
+    height: 100%; 
+    width: 100%; 
+    position:absolute; 
+    top: 0; 
+    left: 0; 
+    z-index: -20;
+    opacity: 0.5;
   }
 
   .create-or-join{
@@ -152,8 +168,12 @@
     justify-content: center;
   }
 
-  .details {
+  .details-past {
     height: 200px;
+  }
+
+  .details-future {
+    height: 300px;
   }
 
   #details-at-bottom {
@@ -170,9 +190,9 @@
     text-align: right;
   }
 
-  .searches-index{
-    border-bottom: 5px black solid;
-  }
+  // .searches-index{
+  //   // border-bottom: 5px black solid;
+  // }
 
   .display-4, .moto {
     color: black;
@@ -278,4 +298,5 @@
     position: sticky;
     top: 0;
     z-index: 10;
+    background-color: blue;
   }

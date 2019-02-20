@@ -1,9 +1,9 @@
 <div> <%= image_tag 'topdown4', id: "meetuplocation-show" %> 
     <div class="container mt-5">
         <%if @meetup_locations.count > 0%>
-        <div class="container m-3">
+        <div class="container mt-3 mr-3 ml-3 mb-3">
             <h3>You are going to:</h3>
-            <div>
+            <div class="details-future" >
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
@@ -51,9 +51,9 @@
             </div>
         </div>
         <% end %>
-        <div class="container mt-5 mr-3 ml-3">
+        <div class="container mt-4 mr-3 ml-3">
             <h3>You previously went to:</h3>
-            <div class="details">
+            <div class="details-past">
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>

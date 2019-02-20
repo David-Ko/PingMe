@@ -1,57 +1,77 @@
-<div> <%= image_tag 'topdown2', id: "meetuplocation-show" %>
-    <div class="container mt-5">
-        <%if @meetup_location.host_id == current_user.id%>
-        <div class="container m-3">
-            <h3>Thanks for creating a Ping!</h3>
-        </div>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Venue</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Guest</th>
-                    <th scope="col">Delete?</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row"><%=@meetup_location.place_name%></th>
-                    <td><%=@meetup_location.place_address%></td>
-                    <td><%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
-                    <% if @meetup_location.users.count == 2%>
-                    <td><%=@meetup_location.users.last.first_name%></td>
-                    <%else%>
-                    <td>Guest pending</td>
-                    <% end %>
-                    <td><%= link_to("Delete Ping", meetup_location_path(@meetup_location), method: :delete, data: {confirm: "Sure?"}, :class => "btn btn-secondary")%></td>
-                </tr>
-            </tbody>
-        </table>
-        <% else %>
-        <div class="container mt-5">
-            <h3>Thanks for joining a Ping!</h3>
-        </div>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Venue</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Host</th>
-                    <th scope="col">Occupation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row"><%=@meetup_location.place_name%></th>
-                    <td><%=@meetup_location.place_address%></td>
-                    <td><%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
-                    <td><%=@host.first_name%></td>
-                    <td><%=@host.profession%></td>
-                </tr>
-            </tbody>
-        </table>    
-        <% end %>
-    </div>
+<div id="map-new" class="container-fluid">
+        <p>Map placeholder</p>
 </div>
+<div class="container mt-5">
+    <%if @meetup_location.host_id == current_user.id%>
+    <div class="container m-3">
+        <h3>Thanks for creating a Ping!</h3>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Venue</th>
+                <th scope="col">Address</th>
+                <th scope="col">Date</th>
+                <th scope="col">Guest</th>
+                <th scope="col">Delete?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row"><%=@meetup_location.place_name%></th>
+                <td><%=@meetup_location.place_address%></td>
+                <td><%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
+                <% if @meetup_location.users.count == 2%>
+                <td><%=@meetup_location.users.last.first_name%></td>
+                <%else%>
+                <td>Guest pending</td>
+                <% end %>
+                <td><%= link_to("Delete Ping", meetup_location_path(@meetup_location), method: :delete, data: {confirm: "Sure?"}, :class => "btn btn-secondary")%></td>
+            </tr>
+        </tbody>
+    </table>
+    <% else %>
+    <div class="container mt-5">
+        <h3>Thanks for joining a Ping!</h3>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Venue</th>
+                <th scope="col">Address</th>
+                <th scope="col">Date</th>
+                <th scope="col">Host</th>
+                <th scope="col">Occupation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row"><%=@meetup_location.place_name%></th>
+                <td><%=@meetup_location.place_address%></td>
+                <td><%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
+                <td><%=@host.first_name%></td>
+                <td><%=@host.profession%></td>
+            </tr>
+        </tbody>
+    </table>    
+    <% end %>
+</div>
+<script defer >
+    function initMap() {
+        let vancouver = {lat:49.2827, lng:-123.1207};
+        let map = new google.maps.Map(
+            document.getElementById('map-new'), {zoom: 14, center: vancouver}
+        );
+        let image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+        let location = {lat: <%=@meetup_location.latitude%>, lng: <%=@meetup_location.longitude%>}
+        map.setCenter(location)
+        let marker = new google.maps.Marker({position: location, map: map, icon: image});
+        let infowindow = new google.maps.InfoWindow({
+            content: '<p><h5>You are going to:</h5></p><p><%=@meetup_location.place_name%></p><p><%=@meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%>!</p>'
+        });
+        infowindow.open(map, marker);
+    }
+</script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_API_KEY']%>&callback=initMap"
+  type="text/javascript">
+</script>

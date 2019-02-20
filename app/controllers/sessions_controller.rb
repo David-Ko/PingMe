@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
         user = User.find_by_email params[:email]
         if user&.authenticate(params[:password]) 
             session[:user_id] = user.id 
-            flash[:primary] = "Welcome, #{user.first_name}!"
+            # flash[:primary] = "Welcome, #{user.first_name}!"
             redirect_to meetup_locations_path
         else
             flash[:primary] = "email or password wrong"

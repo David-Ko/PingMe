@@ -1,53 +1,53 @@
 <div> <%= image_tag 'topdown4', id: "meetuplocation-show" %> 
-    <div class="container-fluid">
-        <h3>Pings near you</h3>
-    </div>  
-    <div class="container-fluid">
-        <div id="map-search-meetups" class="container-fluid">
-            <p>Map placeholder</p>
-        </div> 
-        <div class="container-fluid details-meetup-searches">
-            <p>
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Venue</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Host</th>
-                            <th scope="col">Occupation</th>
-                            <th scope="col">Join?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% @nearby_meetup_locations.each do |meetup_location|%>
-                            <p>
-                                <% if meetup_location.users.count < 2 %>
-                                    <%=form_with(model: @meetup_user, method: :post, local: true) do |form|%>
-                                        <tr>
-                                            <th scope="row"><%=meetup_location.place_name%></th>
-                                            <td><%=meetup_location.place_address%></td>
-                                            <td><%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
-                                            <td><%=meetup_location.users.first.first_name%></td>
-                                            <td><%=meetup_location.users.first.profession%></td>
-                                            <%= form.hidden_field :meetup_location, :value => "#{meetup_location.id}" %>
-                                            <td><%=form.submit "Yes!", class: "btn btn-secondary"%></td>
-                                        </tr>
-                                    <% end %>
-                                <% end %>
-                            </p>
-                        <% end %>
-                    </tbody>
-                </table>    
-            </p>
-        </div>
-    </div> 
+  <div class="container-fluid">
+      <h3>Pings near you</h3>
+  </div>  
+  <div class="container-fluid">
+      <div id="map-search-meetups" class="container-fluid">
+          <p>Map placeholder</p>
+      </div> 
+      <div class="container-fluid details-meetup-searches">
+          <p>
+              <table class="table">
+                  <thead class="thead-dark">
+                      <tr>
+                          <th scope="col">Venue</th>
+                          <th scope="col">Address</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Host</th>
+                          <th scope="col">Occupation</th>
+                          <th scope="col">Join?</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <% @nearby_meetup_locations.each do |meetup_location|%>
+                          <p>
+                              <% if meetup_location.users.count < 2 && meetup_location.users.first != current_user %>
+                                  <%=form_with(model: @meetup_user, method: :post, local: true) do |form|%>
+                                      <tr>
+                                        <th scope="row"><%=meetup_location.place_name%></th>
+                                        <td><%=meetup_location.place_address%></td>
+                                        <td><%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
+                                        <td><%=meetup_location.users.first.first_name%></td>
+                                        <td><%=meetup_location.users.first.profession%></td>
+                                        <%= form.hidden_field :meetup_location, :value => "#{meetup_location.id}" %>
+                                        <td><%=form.submit "Yes!", class: "btn btn-secondary"%></td>
+                                      </tr>
+                                  <% end %>
+                              <% end %>
+                          </p>
+                      <% end %>
+                  </tbody>
+              </table>    
+          </p>
+      </div>
+  </div> 
 </div> 
 <script defer >
     function initMap() {
         let vancouver = {lat:49.2827, lng:-123.1207};
         let map = new google.maps.Map(
-            document.getElementById('map-search-meetups'), {zoom: 12, center: vancouver}
+            document.getElementById('map-search-meetups'), {zoom: 14, center: vancouver}
         );
         let image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
         navigator.geolocation.getCurrentPosition((position) => {
@@ -70,7 +70,7 @@
       
       <% @nearby_meetup_locations.each do |location| %>
         {
-        <% if location.users.count < 2 %>
+        <% if location.users.count < 2 && location.users.first != current_user%>
         const infowindow = new google.maps.InfoWindow({
           content: '<h5><p><%= location.place_name %></p></h5><p><%= location.place_address %></p><p><%= location.users.first.first_name %> - <%= location.users.first.profession %></p>'
         });  
