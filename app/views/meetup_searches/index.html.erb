@@ -45,16 +45,16 @@
 </div> 
 <script defer >
     function initMap() {
-        var vancouver = {lat:49.2827, lng:-123.1207};
-        var map = new google.maps.Map(
+        let vancouver = {lat:49.2827, lng:-123.1207};
+        let map = new google.maps.Map(
             document.getElementById('map-search-meetups'), {zoom: 12, center: vancouver}
         );
-        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+        let image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
         navigator.geolocation.getCurrentPosition((position) => {
-            var location = {lat: position.coords.latitude, lng: position.coords.longitude}
+            let location = {lat: position.coords.latitude, lng: position.coords.longitude}
             map.setCenter(location)
-            var marker = new google.maps.Marker({position: location, map: map, icon: image});
-            var infowindow = new google.maps.InfoWindow({
+            let marker = new google.maps.Marker({position: location, map: map, icon: image});
+            let infowindow = new google.maps.InfoWindow({
                 content: '<h5>You are here!</h5>'
             });
             marker.addListener('mouseover', function() {
