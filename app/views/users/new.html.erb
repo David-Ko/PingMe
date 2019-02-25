@@ -1,5 +1,10 @@
 <div class="container pr-5 pl-5">
     <%= form_with(model: @user, local: true) do |form|%>
+        <%if @user.errors.any?%>
+            <p>
+                Sorry. <%= @user.errors.full_messages.join('. ')%>
+            </p>
+        <% end %>
         <div class="form-group mt-3">
             <b><%= form.label :first_name %></b>
             <%= form.text_field :first_name, class: "form-control" %>
