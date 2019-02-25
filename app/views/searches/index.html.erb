@@ -21,22 +21,23 @@
                 <div>
                     <ol>
                     <% @places["results"].each do |place|%>
-                    <li><%=form_with(model: @meetup_location, method: :post, local: true, :html => {:id => "location"}) do |form|%>
+                    <li>
+                        <%=form_with(model: @meetup_location, method: :post, local: true, :html => {:id => "location"}) do |form|%>
                             <b><%= place["name"]%></b> @ <%= place["vicinity"]%>
-                        <div class="form-group d-flex mt-3">
-                            <%=form.label :Time, "Time: ", class: "form-control time", style: "border 0"%>
-                            <%=form.datetime_local_field :date_time, class: "form-control mr-2"%>
-                            <%=form.submit "Go", class: "btn btn-secondary"%>
-                            <%= form.hidden_field :place_name, :value => "#{place["name"]}" %>
-                            <%= form.hidden_field :place_address, :value => "#{place["vicinity"]}" %>
-                            <%= form.hidden_field :latitude, :value => "#{place["geometry"]["location"]["lat"]}" %>
-                            <%= form.hidden_field :longitude, :value => "#{place["geometry"]["location"]["lng"]}" %>
-                            <%= form.hidden_field :place_rating, :value => "#{place["rating"]}" %>
-                            <%= form.hidden_field :place_id, :value => "#{place["place_id"]}" %>
-                            <%= form.hidden_field :host_id, :value => "#{current_user.id}" %>
-                        </div>
-                        </li>
+                            <div class="form-group d-flex mt-3">
+                                <%=form.label :Time, "Time: ", class: "form-control time", style: "border 0"%>
+                                <%=form.datetime_local_field :date_time, class: "form-control mr-2"%>
+                                <%=form.submit "Go", class: "btn btn-secondary"%>
+                                <%= form.hidden_field :place_name, :value => "#{place["name"]}" %>
+                                <%= form.hidden_field :place_address, :value => "#{place["vicinity"]}" %>
+                                <%= form.hidden_field :latitude, :value => "#{place["geometry"]["location"]["lat"]}" %>
+                                <%= form.hidden_field :longitude, :value => "#{place["geometry"]["location"]["lng"]}" %>
+                                <%= form.hidden_field :place_rating, :value => "#{place["rating"]}" %>
+                                <%= form.hidden_field :place_id, :value => "#{place["place_id"]}" %>
+                                <%= form.hidden_field :host_id, :value => "#{current_user.id}" %>
+                            </div>
                         <% end %>
+                    </li>
                     <% end %>    
                     </ol>
                 </div>
@@ -59,6 +60,7 @@
             let infowindow = new google.maps.InfoWindow({
                 content: '<h5>You are here!</h5>'
             });
+            infowindow.open(map, marker);
             marker.addListener('mouseover', function() {
                 infowindow.open(map, marker);
             });
@@ -83,12 +85,10 @@
           });
         marker.addListener('mouseover', function() {
           infowindow.open(map, marker);
-
         });
         marker.addListener('mouseout', function() {
           infowindow.close(map, marker);
         });
-
         marker.addListener('mouseenter', function(){
             infowindow.classList.add('pink')
         })

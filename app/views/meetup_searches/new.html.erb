@@ -16,8 +16,6 @@
 </div>
 <script>
         navigator.geolocation.getCurrentPosition((position) => {
-            console.log(position.coords.longitude)
-            console.log(position.coords.latitude)
             document.querySelector(".longitude").value = `${position.coords.longitude}`
             document.querySelector(".latitude").value = `${position.coords.latitude}`
         })
@@ -26,7 +24,7 @@
     function initMap() {
         let vancouver = {lat:49.2827, lng:-123.1207};
         let map = new google.maps.Map(
-            document.getElementById('map-new'), {zoom: 14, center: vancouver}
+            document.getElementById('map-new'), {zoom: 15, center: vancouver}
         );
         let image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
         navigator.geolocation.getCurrentPosition((position) => {

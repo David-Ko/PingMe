@@ -6,7 +6,6 @@ class MeetupLocationsController < ApplicationController
     def index
         @user = current_user
         @meetup_locations = @user.meetup_locations.where("date_time >= ?", Time.now).order(date_time: :asc)
-        
         @old_meetup_locations = @user.meetup_locations.where("date_time < ?", Time.now).order(date_time: :asc)
     end
     

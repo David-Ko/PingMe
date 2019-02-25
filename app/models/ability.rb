@@ -31,7 +31,7 @@ class Ability
     alias_action(:create, :read, :edit, :update, :delete, to: :crud)
 
     can(:delete, MeetupLocation) do |meetup_location|
-      meetup_location.users.first == user
+      meetup_location.host_id == user.id
     end
   end
 end

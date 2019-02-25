@@ -1,90 +1,94 @@
 <div> <%= image_tag 'topdown4', id: "meetuplocation-show" %> 
-    <div class="container mt-5">
-        <%if @meetup_locations.count > 0%>
+  <div class="container mt-5">
+      <%if @meetup_locations.count > 0%>
         <div class="container mt-3 mr-3 ml-3 mb-3">
-            <h3>You are going to:</h3>
+          <h3>You are going to:</h3>
             <div class="details-future" >
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Venue</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Guest</th>
-                            <th scope="col">Occupation</th>
-                            <th scope="col">Delete?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% @meetup_locations.each do |meetup_location|%>
-                            <tr>
-                                <th scope="row"><%=meetup_location.place_name%></th>
-                                <td><%=meetup_location.place_address%></td>
-                                <td><%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
-                                <% if meetup_location.users.count == 2%>
-                                    <% if meetup_location.users.first.first_name == @user.first_name%>
-                                    <td><%=meetup_location.users.last.first_name%></td>
-                                    <% else %>
-                                    <td><%=meetup_location.users.first.first_name%></td>
-                                    <% end %>
-                                <%else%>
-                                <td>Guest pending</td>
-                                <% end %>
-                                <% if meetup_location.users.count == 2%>
-                                    <% if meetup_location.users.first.first_name == @user.first_name%>
-                                    <td><%=meetup_location.users.last.profession%></td>
-                                    <% else %>
-                                    <td><%=meetup_location.users.first.profession%></td>
-                                    <% end %>
-                                <%else%>
-                                <td>Not Available</td>
-                                <% end %>
-                                <%if meetup_location.host_id == current_user.id%>
-                                <td><%= link_to("Delete Ping", meetup_location_path(meetup_location.id), method: :delete, data: {confirm: "Sure?"})%></td>
-                                <%else%>
-                                <td><%= link_to("UnJoin", meetup_user_path(meetup_location.id), method: :delete, data: {confirm: "Really? Leaving this Ping?"})%></td>
-                                <% end %>
-                            </tr>
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Venue</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Guest</th>
+                    <th scope="col">Occupation</th>
+                    <th scope="col">Delete?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @meetup_locations.each do |meetup_location|%>
+                    <tr>
+                      <th scope="row"><%=meetup_location.place_name%></th>
+                        <td><%=meetup_location.place_address%></td>
+                        <td><%=meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
+                        <% if meetup_location.users.count == 2%>
+                          <% if meetup_location.users.first.first_name == @user.first_name%>
+                            <td><%=meetup_location.users.last.first_name%></td>
+                          <% else %>
+                            <td><%=meetup_location.users.first.first_name%></td>
+                          <% end %>
+                        <%else%>
+                            <td>Guest pending</td>
                         <% end %>
-                    </tbody>
-                </table>
+                        <% if meetup_location.users.count == 2%>
+                          <% if meetup_location.users.first.first_name == @user.first_name%>
+                            <td><%=meetup_location.users.last.profession%></td>
+                          <% else %>
+                            <td><%=meetup_location.users.first.profession%></td>
+                          <% end %>
+                        <%else%>
+                            <td>Not Available</td>
+                        <% end %>
+                        <%if meetup_location.host_id == current_user.id%>
+                            <td><%= link_to("Delete Ping", meetup_location_path(meetup_location.id), method: :delete, data: {confirm: "Sure?"})%></td>
+                        <%else%>
+                            <td><%= link_to("UnJoin", meetup_user_path(meetup_location.id), method: :delete, data: {confirm: "Really? Leaving this Ping?"})%></td>
+                        <% end %>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
             </div>
         </div>
-        <% end %>
+      <% end %>
         <div class="container mt-4 mr-3 ml-3">
-            <h3>You previously went to:</h3>
-            <div class="details-past">
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Venue</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Guest</th>
-                            <th scope="col">Occupation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% @old_meetup_locations.each do |old_meetup_location|%>
-                            <tr>
-                                <th scope="row"><%=old_meetup_location.place_name%></th>
-                                    <td><%=old_meetup_location.place_address%></td>
-                                    <td><%=old_meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
-                                    <% if old_meetup_location.users.count == 2%>
-                                    <td><%=old_meetup_location.users.last.first_name%></td>
-                                    <%else%>
-                                    <td>Guest pending</td>
-                                    <% end %>
-                                    <% if old_meetup_location.users.count == 2%>
-                                    <td><%=old_meetup_location.users.last.profession%></td>
-                                    <%else%>
-                                    <td>Not Available</td>
-                                    <% end %>
-                            </tr>
+          <h3>You previously went to:</h3>
+          <div class="details-past">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Venue</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Guest</th>
+                  <th scope="col">Occupation</th>
+                </tr>
+                </thead>
+                  <tbody>
+                    <% @old_meetup_locations.each do |old_meetup_location|%>
+                      <tr>
+                        <th scope="row"><%=old_meetup_location.place_name%></th>
+                        <td><%=old_meetup_location.place_address%></td>
+                        <td><%=old_meetup_location.date_time.strftime("%B %d, %Y (%A) at %l:%M %P")%></td>
+                        <% if old_meetup_location.users.count == 2%>
+                            <% if old_meetup_location.users.first.first_name == @user.first_name%>
+                            <td><%=old_meetup_location.users.last.first_name%></td>
+                            <% else %>
+                            <td><%=old_meetup_location.users.first.first_name%></td>
+                            <% end %>   
+                        <%else%>
+                            <td>Guest pending</td>
                         <% end %>
-                    </tbody>
-                </table>
-            </div>
+                        <% if old_meetup_location.users.count == 2%>
+                            <td><%=old_meetup_location.users.last.profession%></td>
+                        <%else%>
+                            <td>Not Available</td>
+                        <% end %>
+                      </tr>
+                    <% end %>
+                  </tbody>
+            </table>
+          </div>
         </div>
-    </div>
+  </div>
 </div> 

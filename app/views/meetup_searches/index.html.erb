@@ -57,6 +57,7 @@
             let infowindow = new google.maps.InfoWindow({
                 content: '<h5>You are here!</h5>'
             });
+            infowindow.open(map, marker);
             marker.addListener('mouseover', function() {
                 infowindow.open(map, marker);
             });
@@ -88,7 +89,6 @@
         <% end %>
         }
       <% end %>
-
     }
 </script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_API_KEY']%>&callback=initMap"
