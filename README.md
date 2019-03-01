@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# SUMMARY 
+This is a network app that is geared towards working professionals who want to expand their network and meet other professionals within or outside of their field on a 1-on-1 basis.  This app is fully functional and more functionalities will be added accordingly.  A React front-end is work-in-progress.
 
-Things you may want to cover:
+# TECHNOLOGIES and Languages
+Ruby, Rails, API, Geocoder
 
-* Ruby version
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
