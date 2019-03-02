@@ -26,12 +26,17 @@ module Pingme
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    # config.middleware.insert_before 0, Rack::Cors do
-    #   allow do
-    #     origins '*'
-    #     resource '*', headers: :any, methods: [:get, :post, :options]
-    #   end
-    # end
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'localhost:3030', 'http://127.0.0.1:3030'
+        resource(
+          "/api/*", 
+          headers: :any,
+          credentials: true, 
+          methods: [:get, :post, :delete, :patch, :put, :options]
+        )
+      end
+    end
     config.time_zone = 'Pacific Time (US & Canada)'
     config.active_record.default_timezone = :local
     # Don't generate system test files.
