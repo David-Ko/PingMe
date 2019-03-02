@@ -28,5 +28,15 @@ resources :meetup_searches
 
 resources :meetup_users
 
+namespace :api, defaults: {format: :json} do
+  namespace :v1 do
+    resources :users, only: [] do
+      get :current, on: :collection 
+    end
+    resources :meetup_locations
+    resource :session, only: [:create, :destroy]
+  end
+end
+
 
 end
