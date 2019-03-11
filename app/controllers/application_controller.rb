@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
     private
     
+    def index
+        @user = User.new
+    end
+    
     def current_user
         if session[:user_id].present?
          @current_user ||= User.find_by(id: session[:user_id])

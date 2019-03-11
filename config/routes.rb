@@ -28,6 +28,9 @@ resources :meetup_searches
 
 resources :meetup_users
 
+resources :instructions
+get('/how_to', to: "instructions#how_to", as: :how_to)
+
 namespace :api, defaults: {format: :json} do
   namespace :v1 do
     resources :users, only: [] do

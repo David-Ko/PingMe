@@ -1,8 +1,5 @@
 class Api::V1::SessionsController < Api::ApplicationController
     def create
-        # puts "==============================="
-        # puts params[:email]
-        # puts "==============================="
         user = User.find_by(email: params[:email])
         if user&.authenticate(params[:password])
           session[:user_id] = user.id

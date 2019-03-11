@@ -28,7 +28,7 @@ module Pingme
     # the framework and any gems in your application.
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'localhost:3030', 'http://127.0.0.1:3030'
+        origins 'localhost:3030', 'http://127.0.0.1:3030', 'localhost:3040', 'http://127.0.0.1:3040'
         resource(
           "/api/*", 
           headers: :any,
