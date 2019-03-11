@@ -80,7 +80,11 @@
                             <td>Guest pending</td>
                         <% end %>
                         <% if old_meetup_location.users.count == 2%>
+                          <% if old_meetup_location.users.first.first_name == @user.first_name%>
                             <td><%=old_meetup_location.users.last.profession%></td>
+                          <% else %>
+                            <td><%=old_meetup_location.users.first.profession%></td>
+                          <% end %>
                         <%else%>
                             <td>Not Available</td>
                         <% end %>
